@@ -1,0 +1,12 @@
+nbs/
+redis_data/
+docker-compose.yml
+Dockefile
+README.md
+temp.py
+SentimentalAnalysisAPI.code-workspace
+.env
+__pycache__
+venv
+.gitignore
+.git/

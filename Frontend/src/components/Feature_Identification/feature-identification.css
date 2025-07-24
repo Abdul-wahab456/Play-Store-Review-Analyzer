@@ -1,0 +1,443 @@
+/* feature-identification.css */
+
+/* Base Container Styles */
+.dashboard-container {
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dark-mode {
+    background-color: #1a1a2e;
+    color: #e6e6e6;
+  }
+  
+  /* Top Navigation Bar */
+  .top-navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 1rem;
+    z-index: 1000;
+  }
+  
+  .dark-mode .top-navbar {
+    background-color: #16213e;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .brand-title {
+    font-weight: 600;
+    color: #2d3748;
+  }
+  
+  .dark-mode .brand-title {
+    color: #f8f9fa;
+  }
+  
+  .nav-icon {
+    color: #4a5568;
+    transition: all 0.2s ease;
+  }
+  
+  .nav-icon:hover {
+    transform: scale(1.1);
+    color: #2b6cb0;
+  }
+  
+  .dark-mode .nav-icon {
+    color: #cbd5e0;
+  }
+  
+  .dark-mode .nav-icon:hover {
+    color: #63b3ed;
+  }
+  
+  .notification-badge {
+    font-size: 0.6rem;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    background-color: #f8f9fa;
+    border-right: 1px solid #e2e8f0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .dark-mode .sidebar {
+    background-color: #0f3460;
+    border-right: 1px solid #1e3650;
+  }
+  
+  .sidebar-btn {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar-btn:hover {
+    transform: translateX(5px);
+  }
+  
+  .sidebar-btn:active {
+    transform: translateX(5px) scale(0.98);
+  }
+  
+  /* Main Content Area */
+  .main-content {
+    background-color: #f7fafc;
+    min-height: 100vh;
+  }
+  
+  .dark-mode .main-content {
+    background-color: #1a1a2e;
+  }
+  
+  /* Card Styles */
+  .card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+  }
+  
+  .dark-mode .card {
+    background-color: #16213e;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .dark-mode .card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+  }
+  
+  .dark-mode .card-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Feature Cards */
+  .feature-card {
+    border-left: 4px solid #4299e1;
+  }
+  
+  .feature-card:hover {
+    border-left: 4px solid #2b6cb0;
+  }
+  
+  .dark-mode .feature-card {
+    border-left: 4px solid #63b3ed;
+  }
+  
+  .dark-mode .feature-card:hover {
+    border-left: 4px solid #4299e1;
+  }
+  
+  .feature-label {
+    font-size: 0.9rem;
+    color: #4a5568;
+    font-weight: 500;
+  }
+  
+  .dark-mode .feature-label {
+    color: #cbd5e0;
+  }
+  
+  .feature-value {
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0.5rem 0;
+  }
+  
+  .dark-mode .feature-value {
+    color: #f8f9fa;
+  }
+  
+  .feature-divider {
+    height: 2px;
+    background: linear-gradient(90deg, rgba(66, 153, 225, 0.5), rgba(66, 153, 225, 0));
+    margin: 0.75rem 0;
+  }
+  
+  .feature-description {
+    font-size: 0.8rem;
+    color: #718096;
+  }
+  
+  .dark-mode .feature-description {
+    color: #a0aec0;
+  }
+  
+  .trend-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.35rem 0.5rem;
+  }
+  
+  /* Table Styles */
+  .feature-requests-table-container,
+  .bug-reports-table-container {
+    overflow-x: auto;
+    border-radius: 0.75rem;
+  }
+  
+  .table {
+    margin-bottom: 0;
+  }
+  
+  .table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: #4a5568;
+    background-color: #f7fafc;
+    padding: 1rem 1.5rem;
+  }
+  
+  .dark-mode .table th {
+    color: #cbd5e0;
+    background-color: #16213e;
+  }
+  
+  .table td {
+    padding: 1rem 1.5rem;
+    vertical-align: middle;
+  }
+  
+  .feature-name {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .feature-date,
+  .bug-date {
+    font-size: 0.75rem;
+  }
+  
+  .feature-review,
+  .bug-comment {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .source-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.35rem 0.75rem;
+  }
+  
+  .sentiment-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.35rem 0.75rem;
+  }
+  
+  .votes-count {
+    font-weight: 600;
+  }
+  
+  /* Chart Cards */
+  .chart-card {
+    border: none;
+  }
+  
+  .chart-card .card-body {
+    padding: 1rem;
+  }
+  
+  /* Notifications Popover */
+  .dark-popover {
+    background-color: #16213e;
+    border: 1px solid #1e3650;
+  }
+  
+  .popover-header {
+    font-weight: 600;
+  }
+  
+  .list-group-item {
+    padding: 0.75rem 1.25rem;
+    transition: all 0.2s ease;
+  }
+  
+  .unread-notification {
+    background-color: rgba(66, 153, 225, 0.1) !important;
+  }
+  
+  .dark-mode .unread-notification {
+    background-color: rgba(66, 153, 225, 0.2) !important;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .sidebar {
+      height: auto;
+      position: relative;
+    }
+    
+    .main-content {
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .feature-card {
+      margin-bottom: 1rem;
+    }
+    
+    .chart-card {
+      margin-bottom: 1rem;
+    }
+  }
+
+.feature-card .card-body {
+  padding: 1rem; /* Reduced from default */
+}
+
+.feature-label {
+  font-size: 0.85rem; /* Slightly smaller */
+  color: #4a5568;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.dark-mode .feature-label {
+  color: #cbd5e0;
+}
+
+.feature-value {
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0.5rem 0;
+  font-size: 1.75rem; /* Adjusted size */
+}
+
+.dark-mode .feature-value {
+  color: #f8f9fa;
+}
+
+.feature-description {
+  font-size: 0.75rem; /* Smaller text */
+  color: #718096;
+  line-height: 1.3;
+}
+
+.dark-mode .feature-description {
+  color: #a0aec0;
+}
+
+/* Table alignment improvements */
+.source-badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+}
+
+.votes-count {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.feature-name {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.feature-review {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  max-width: none; /* Remove width restriction for better readability */
+}
+/* Updated CSS for the table - Add this to your feature-identification.css */
+.feature-requests-table-container {
+  overflow: visible; /* Change from overflow-x: auto */
+  border-radius: 0.75rem;
+}
+
+.table {
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: #4a5568;
+  background-color: #f7fafc;
+  padding: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+  position: relative;
+}
+
+.dark-mode .table th {
+  color: #cbd5e0;
+  background-color: #16213e;
+  border-bottom: 2px solid #1e3650;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.dark-mode .table td {
+  border-bottom: 1px solid #1e3650;
+}
+
+.source-badge {
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  padding: 0.4rem 0.8rem !important;
+  border-radius: 12px !important;
+  white-space: nowrap !important;
+  position: static !important;
+  display: inline-block !important;
+  transform: none !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  bottom: auto !important;
+}
+
+.feature-name {
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.feature-review {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.votes-count {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0;
+}

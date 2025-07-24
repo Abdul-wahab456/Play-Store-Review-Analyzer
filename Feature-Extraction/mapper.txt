@@ -1,0 +1,379 @@
+app_id:com.flyersoft.moonreader
+app_description:☆ Innovative book reader with powerful controls & full functions:
+
+• Read thousands of ebooks for free, supports online ebook libraries
+• Read local books with smooth scroll and tons of innovation
+
+☆ Support EPUB, PDF, DJVU, AZW3, MOBI, FB2, PRC, CHM, CBZ, CBR, UMD, DOCX, ODT, RTF, TXT, HTML, MHT/MHTML, MD(MarkDown), WEBP, RAR, ZIP or OPDS, key features:
+
+✔ Full visual options: line space, font scale, bold, italic, shadow, justified alignment, alpha colors, fading edge etc.
+✔ 10+ themes embedded, includes Day & Night mode switcher.
+✔ Various types of paging: touch screen, volume keys or even camera, search or back keys.
+✔ 24 customized operations (screen click, swipe gesture, hardware keys), apply to 15 customized events: search, bookmark, themes, navigation, font size and more.
+✔ 5 auto-scroll modes: rolling blind mode; by pixel, by line or by page. Real-time speed control.
+✔ Adjust the brightness by sliding your finger along the left edge of the screen, gesture commands supported.
+✔ Intelligent paragraph; indent paragraph; trim unwanted blank spaces options.
+✔ “Keep your eyes health” options for long-time reading.
+✔ Real page turning effect with customized speed/color/transparent; 5 page flip animations;
+✔ My Bookshelf design: Favorites, Downloads, Authors, Tags; self bookcover, search, import supported.
+✔ Justified text alignment, hyphenation mode supported.
+✔ Dual page mode for landscape screen.
+✔ Support all four screen orientations.
+✔ EPUB3 multimedia content support (video and audio)
+✔ Backup/Restore options to cloud via DropBox/WebDav, sync reading positions between phones and tablets.
+✔ Highlight, Annotation, Dictionary, Translation, Share functions all in this ebook reader.
+✔ Reading Ruler for focus reading (6 styles)
+
+-Localized in 40 languages: English, አማርኛ, العربية, հայերեն, Български, català, český, dansk, Nederlands, eesti, suomi, français, galego, საქართველოს, Deutsch, ελληνικά, עברית, magyar, Indonesia, italiano, 日本語, 한국어, македонски, persan, polski, português, português brasil, român, русский, српски, 简体中文, slovenských, slovenskega, español, Svenskt, 繁體中文, ภาษาไทย, Türk, Українська, Việt
+
+-Additional benefits in pro version:
+#Ad-free
+#Shake the phone to speak (Text-to-speech, TTS engine support)
+#More beautiful themes, background images and fonts
+#Reading statistics function
+#Customize reader bar function
+#Headset & Bluetooth keys control
+#Name replacement | Role reversal
+#Multi-point touch support
+#Option for password protection at startup
+#Book to home screen shortcut
+#Annotations, highlights & bookmarks share support
+#Customer email support
+#Widget shelf support, group your favorite books, put them to desktop as widget
+
+-FAQ: http://www.moondownload.com/faq.html
+
+-About "All Files Access" permission: Moon+ Reader is not only a simple e-book reader, it is also a powerful e-book document management tool that supports multiple types of e-book documents, including txt, html, epub, pdf, djvu, mobi, azw/azw3, fb2, prc, docx, odt, rtf, umd, chm, cbr, cbz, md(MarkDown), mht/mhtml, webp, rar, zip, etc. "All Files Access" permission allows the app to read and manage all e-book documents saved in any folder on your device, save PDF annotations back to PDF files, save book files from multiple network libraries, cloud services and websites to your local storage for continuous reading and management. The app also includes a powerful "My Files" tool to easily manage book files and all other files in a full-featured file management way, many users like to use this way to manage their book files, this feature also requires "All Files Access" permission.
+
+text: very nice features and highly customizable! I've been testing a bunch of PDF readers tonight, planning to use it for book reading. I love the feature that locks the location of the screen even if you switch to the next page... it saves me from having to fiddle with each page. Apple Books should learn from Moon+ Reader's design :D
+rating: 5
+
+text:i hate how slow it loads up the pages like what's the point i already downloaded it why do it need to still load smh
+rating: 1
+
+text: I love this app alot especially the highlight feature but i took 1 star off because it cant seem to add pdf books into the app
+rating: 4
+
+text: Need an add free option, all these tik tok ads are driving me nuts but other than that it's a fantastic app
+rating: 4
+
+text:For years this has been my favorite app & have recommended it to friends. Now it keeps crashing. I'd be willing to buy the pro version to keep using it but not sure if the same bug wouldn't crash the pro version. Until the bug is fixed, I'm going to use another app. Please fix the bug.
+rating: 1
+
+text: Would have given it 5 stars However now it has so many ads interrupting reading that it's no longer worth it Uninstalling to find a more worthy app
+rating: 1
+
+text: I am very Happy with your App. Thanks. I have a suggestion to make it even more useful. Could you please give an online & dynamic facility to readers to choose their level of English language competence and based on the choice, provide in parenthesis the meaning of all difficult words appropriate for the level of competence? Additionally, it will be great if on pressing a button the pronunciation can be heard ! Thanks & regards.
+rating: 5
+
+text: I love it however it would be nice to be able to swipe side to side to flip pages instead of scrolling down. is there a way to do that?
+rating: 4
+
+text: when are you fixing auto font size bug whenever i zoomed mht or html?
+rating: 2
+
+text: By far the best reader I have ever used. It has pretty much everything in it, though it does take some tinkering around to figure all the details and features out. My only gripe with it is the ads I have to watch.
+rating: 4
+
+
+
+
+
+app_id: com.david.android.languageswitch
+app_description:Beelinguapp is the ultimate language learning app that helps you master Spanish, English, and many other languages with bilingual audiobooks. Using our parallel-text method, you can read stories in two languages side by side, improving comprehension, pronunciation, and vocabulary at any experience level!
+
+Key Features:
+
+• Bilingual Stories for All Levels: From beginners to experts, find stories tailored to your skill level and interests.
+• Audiobooks Narrated by Native Speakers: Listen to authentic pronunciation and train your ears with our native narrators.
+• Karaoke-Style Scrolling Text: Follow along with synchronized text to enhance your reading and listening skills.
+• Wide Variety of Stories: Enjoy classics like Snow White and Sherlock Holmes, cultural guides, daily news articles, and children's books with illustrations.
+• Quizzes to Test Your Knowledge: Reinforce your learning with quizzes at the end of each story.
+• Learn at Your Own Pace: No need for memorization—just pick your favorite stories and start learning.
+
+Why Choose Beelinguapp?
+
+• Language Learning Made Easy: Reference words and phrases in your language while learning your target language.
+• Engaging Content: Choose from a diverse library of genres including fairy tales, classics, novels, and more.
+• Flexible Learning: Whether you're a beginner or advanced learner, Beelinguapp has stories that match your level.
+
+Download Beelinguapp and explore a new way of learning languages. Read and listen to your favorite stories while improving your language skills for free!
+
+If you’re seeking an effective Spanish learning app, Beelinguapp is the perfect choice. Our innovative method allows you to read and listen to stories in Spanish while referencing your native language, making it easier to grasp and retain new vocabulary and phrases. Whether you're just beginning your Spanish learning journey or you're an advanced learner looking to polish your skills, Beelinguapp offers a wide array of captivating stories and audiobooks narrated by native speakers to fully immerse you in the Spanish language. From classic tales and cultural narratives to news articles and children's books, our Spanish learning app provides a dynamic and enjoyable way to learn.
+
+Looking for an efficient way to learn English? Beelinguapp simplifies the process. With our bilingual audiobooks, you can read and listen to stories in English while referencing your native language. This method helps you quickly understand and remember new vocabulary and phrases. Whether you're a beginner or an advanced learner, Beelinguapp offers a diverse selection of stories and audiobooks narrated by native speakers to immerse you in English. From classic literature to children’s books and news articles, our English learning app ensures a fun and effective learning experience.
+
+You are looking for another language?
+• Learn Spanish
+• Learn French
+• Learn English
+• Learn Japanese
+• Learn German
+• Learn Korean
+• Learn Italian
+• Learn Russian
+• Learn Chinese
+• Learn Arabic
+• Learn Portuguese
+• Learn Swedish
+• Learn Turkish
+• Learn Hindi
+• Learn Polish
+• Learn Dutch
+• Learn Indonesian
+• Learn Greek
+• Learn Norwegian
+• Learn Finnish
+• Learn Ukrainian
+• Learn Vietnamese
+• Learn Filipino
+
+___
+
+
+Pick the language you want to learn, sit back and read! Download Beelinguapp now and start learning languages for free!
+
+___
+
+
+Beelinguapp Subscription:
+
+Beelinguapp membership is a month to month subscription that begins at sign up. You can easily cancel through iTunes and there are no long-term contracts or cancellation fees.
+
+
+Payment will be charged to iTunes account at confirmation of purchase. Subscription automatically renew at least 24-hours before the end of the current period. Account will be charged for renewal within 24 hours prior to the end of the current period.
+
+
+Privacy Policy & terms of use: https://www.iubenda.com/privacy-policy/7910868
+
+
+Terms and Conditions
+
+http://beelinguapp.com/t&c/
+
+http://beelinguapp.com/t&c/
+
+text: interesting app, now if it can read the english translation also aloud would be a game changer and we'll be able to listen without straining eyes on phone screen
+rating: 5
+
+text: it's totally waste of time please nobody install this app because in the end of the settings they ask you for pay if you want to learn and it's minimum 7000 per week charges you so I advise you all please avoid anx don't install it
+rating: 1
+
+text: tthhdd wow that's awesome I'm glad to have this app in my TV!!
+rating: 5
+
+text: Unsatisfactory. The app is slow to load and doesn't open at the point where you finished studying. Nouns in the flash cards rarely have their article attached and the example/context sentences are not translated. Cancelling your subscription and deleting your account involves emailing 2 different addresses. A good idea very poorly executed.
+rating: 2
+
+text: this app is so buggy I don't even know where to begin to describe how awful it is.
+rating: 1
+
+text: I hardly know japanese, so I cannot say this for certain! This app heavily features AI images, and promotes AI within the premium plan (AI smart dictionary if i recall?) so I do not trust this app to give me proper translations. I already noticed a few errors within THE FIRST STORY!! This app has a promising premise. If only it were translated by actual humans.
+rating: 1
+
+text: As soon as I can I plan on paying yhe yearly fee. I came upon this app bc I was a little bored and liked the idea of practicing reading my Spanish. The first free read was wonderful.
+rating: 5
+
+text: to be honest I really liked this app I cant express how I liked this first it was step wise and drove me bored but eventually I couldn't believe what I got I can download any article what ever I wanted and I can download it it is incredible!
+rating: 5
+
+text: not native sound. only machine sound and translation, also some wrong translation in the stories. It was a wrong decision to buy this app it is bases on a good idea but execution is terrible I also reinstalled the software and learning language changed to Spanish flash card part is not useful and also buggy, sometimes if you click on memorized it gos to the first card and also it doesn't have the repetition and usefulness like Ankidroid and you need to copy new words to Ankidroid to learn them
+rating: 1
+
+text: great way to learn, great selection of bilingual texts in various languages,that is being constantly updated, it would be great to have some grammar as well. I am using premium version and it is totally worth it and not expensive at all!
+rating: 5
+
+
+app_id: com.lingualeo.android
+app_description: Lingualeo is a user-friendly and efficient platform for learning English. It combines an educational game with a wide range of tools and techniques tailored for both children and adults.
+
+✦ Variety of linguistic materials 📚
+  	• Expanding your vocabulary 
+        • Grammar exercises (fill in the blanks, translate, choose the correct verb form, arrange words in a sentence) 
+        • Diverse real-life topics (travel, work, relocation) 
+        • Pre-made English phrases 
+        • Listening practice in English 
+        • Slang and everyday conversational English 
+        • Grammar rules explained in simple terms 
+        • Vocabulary training exercises
+
+✦ Personalized dictionary 📒
+ 	• Add new words manually 
+        • Words from lessons and materials 
+        • Ready-to-use word sets
+
+✦ Measurable progress 📈
+Monitor your language learning progress and enhance your skills in:
+        • Reading 
+        • Writing
+        • Listening 
+        • Speaking 
+        • Grammar
+
+✦ Accessibility 🎁
+        • First 200 words for free 
+        • Free for the first 7 days
+
+Lingualeo – English learning made fun and lasting 🦁
+
+text: interesting app, now if it can read the english translation also aloud would be a game changer and we'll be able to listen without straining eyes on phone screen
+rating: 5
+
+text: i hate how slow it loads up the pages like what's the point i already downloaded it why do it need to still load smh
+rating: 1
+
+text: I love this app alot especially the highlight feature but i took 1 star off because it cant seem to add pdf books into the app
+rating: 4
+
+text: Need an add free option, all these tik tok ads are driving me nuts but other than that it's a fantastic app
+rating: 4
+
+text: For years this has been my favorite app & have recommended it to friends. Now it keeps crashing. I'd be willing to buy the pro version to keep using it but not sure if the same bug wouldn't crash the pro version. Until the bug is fixed, I'm going to use another app. Please fix the bug.
+rating: 1
+
+text: Would have given it 5 stars However now it has so many ads interrupting reading that it's no longer worth it Uninstalling to find a more worthy app
+rating: 1
+
+text: I am very Happy with your App. Thanks. I have a suggestion to make it even more useful. Could you please give an online & dynamic facility to readers to choose their level of English language competence and based on the choice, provide in parenthesis the meaning of all difficult words appropriate for the level of competence? Additionally, it will be great if on pressing a button the pronunciation can be heard ! Thanks & regards.
+rating: 5
+
+text: I love it however it would be nice to be able to swipe side to side to flip pages instead of scrolling down. is there a way to do that?
+rating: 4
+
+text: when are you fixing auto font size bug whenever i zoomed mht or html?
+rating: 2
+
+text: By far the best reader I have ever used. It has pretty much everything in it, though it does take some tinkering around to figure all the details and features out. My only gripe with it is the ads I have to watch.
+rating: 4
+
+
+
+app_id: com.medisafe.android.client
+app_description: Get the “MUST HAVE” award-winning pill reminder and medication tracker ranked #1 by pharmacists, physicians and patients. Join the millions of people using Medisafe who are taking control of their medication management with our app - stay on track and never miss another med. Full functionality is available with Medisafe Premium.
+💊 <b>Features</b>
+• Pill reminder and alarm for all medication needs
+• Drug-to-drug interaction checker
+• Family and caregiver support via “Medfriend” functionality
+• Medicine tracker
+• Refill reminders
+• Dr appointment manager and calendar
+• Support for complex dose schedules 
+• Add “as needed” medications, vitamins and supplements
+• Full selection of OTC and RX medications
+• Daily, weekly & monthly med reporting with logbook to share with your doctor
+• Track health measurements for various medical conditions (diabetes, hypertension, cancer, anxiety, depression, HIV, multiple sclerosis, MS, Crohn’s, lymphoma, myeloma and leukemia) e.g. weight, blood pressure, blood sugar levels
+• Android Wear enabled
+• Customizable reminders and time settings (i.e weekend mode so you can sleep in)
+• Automatic time zone detection
+• Easily customize your pill reminder notifications. 
+💡<b>Exclusive JITI™ Technology</b>
+Medisafe’s proprietary Just-In-Time-Intervention (JITI™) technology ensures you get support that is personalized just for you. Get the right Medisafe interactions, at the right moments, to keep you on track. Over time, JITI learns which interventions - such as timing and messages - are more successful for you and adjusts your experience for the best results. You’ll immediately start to benefit from our years of experience and analysis helping millions of people stay on track in ways that are most impactful for them.
+❤️ <b>A Health Tracker Built for You</b>
+Medisafe doesn’t just remind you to take your meds. As a medication management platform, Medisafe is a comprehensive tool that compiles all of your medical and health information in one place: pill and medicine reminders, drug-to-drug interactions, refill alerts, doctor appointments, and health journal with 20+ trackable health measurements
+🔒<b>Privacy</b>
+• Medisafe is free to download and use, and no registration is required
+• We comply with strict privacy laws (HIPAA and GDPR compliant) to safeguard medical information
+✅ <b>App Permission Information</b>
+Read Your Contacts - used if you choose to add a doctor or Medfriend. The app never stores your address book content and it doesn’t access your address book without asking you first. 
+Find Accounts on the Device - Medisafe uses push notifications to Medfriends to let those with permission know if the main user has forgotten to take medication.
+🔎 <b>Additional Information</b>
+Frequently Asked Questions: https://bit.ly/3z9Db3q
+Terms of Use: http://bit.ly/2Cpoz0n
+Privacy Policy: http://bit.ly/2Cmpb7d
+Validation by 3rd Party Independent Studies:
+• http://bit.ly/2GjwcYJ
+• http://bit.ly/2gLdPCp
+Medisafe is free for download and use. Medisafe Premium includes unlimited medications, unlimited Medfriends, access to more than 20 health measurements, and the choice of a dozen reminder sounds. Premium is offered by a subscription with automatic renewal.
+
+text: Good app that reminds me to take my medications as I would so easily miss or take twice without it
+rating: 4
+
+text: Sadly I have to give this app 1 star for abruptly switching to a subscription model. Previous review: 5 stats, Helps me stay on top of my health
+rating: 1
+
+text: Excellent if you are on several medications. I have recently had a kidney transplant and this app is phenomenal for reminding me to take meds and when to refill my stock.
+rating: 5
+
+text: Although I just found this wonderful app. I know it's just what I have been looking for. I have been getting overwhelmed with all my medical paperwork, & I know this app. is going to be extremely helpful.
+rating: 5
+
+text: Outstanding way to keep track of a lot of pills. Helped me during a time when I had to follow a complex eye drop schedule.
+rating: 5
+
+text: Timely reminders that are very useful. Ability to rearrange based on the intake time will be useful, like before / after breakfast, lunch, dinner will be helpful.
+rating: 5
+
+text: the only one problem I keep having is one medication I have tried changing it's time taken and the app doesn't keep the time change. it goes back to the original.
+rating: 4
+
+text: Why Not Ads? I used this app for a decade but got rid of it when they forced paid subscriptions. I noticed their ratings have significantly dropped. t Too bad they don't come up with different options like subscribe or deal with paid advertisements.
+rating: 1
+
+text: It helps me remember my BP meds and provides a place to log my BP when I take it. I tried putting other meds, but it won't track them unless you set a daily reminder, and I just dont want a reminder for all of them. I would rather log some of them when I want to. I have the free version. it is possible the paid version allows for more wiggle room.
+rating: 4
+
+text: simple. Smooth. highly functional. clean interface. export data to CSV. couldn't ask for more.
+rating: 5
+
+
+
+app_id: eu.smartpatient.mytherapy
+app_description: <b>MyTherapy medicine tracker and med timer</b> Our pill reminder app reliably reminds you to take your tablets, pills, and other medication, vitamins, or supplements on time. With the medication tracker and pill counter you always have a clear overview of your treatment and stock, making it the ideal health app.
+
+Schedule reminders to record weight, blood pressure, blood oxygen, and blood sugar. Track all metrics directly in the MyTherapy health app. Combined with the pain diary and mood tracker, MyTherapy offers valuable insights for doctor discussions, from migraines to ADHD. Use the reminder app for medication tracking and the mood tracker to monitor well-being, helping you follow your health goals easily.
+
+<b>Download our pill reminder now!</b>
+
+💡 <b>Easy to set up:</b> Simply type your medication or search our drug database to create your personal medicine reminder. Set different times for weekends—perfect for anyone needing a reliable reminder app.
+
+⏰ <b>Medication reminder:</b> A dependable pill reminder and med timer for taking medications, tablets, and supplements on time. The medication tracker records every intake reliably.
+
+📉 <b>Track weight and blood pressure:</b> Get a reminder for 20+ measurements like weight, blood pressure, and blood oxygen. All data is recorded in your personal health diary for easy tracking.
+
+🛒 <b>Pill counter and refill alert:</b> Our health app's pill counter monitors your stock and sends a prescription reminder when it’s time to refill.
+
+📝 <b>Pain diary and mood tracker:</b> Document pain symptoms and emotional states. The mood tracker helps monitor mental health alongside your physical health.
+
+📊 <b>Monthly health reports:</b> Track tablet intake, blood pressure, and symptoms automatically. Export your health diary as a PDF for medical appointments. Manage everything with one smart health app and reminder app.
+
+💉 <b>Injection site reminder:</b> The med timer supports injection therapies, helping change injection sites regularly (useful for diabetes, MS, or obesity treatments).
+
+👨‍⚕️ <b>Appointment reminders:</b> Manage doctor’s visits easily. The medicine reminder app keeps you on schedule for appointments, prescriptions, and checkups—essential for anyone wanting to follow their health routines.
+
+🏆 <b> First place in the German Health Award from news channel N-TV and the German Institute for Service Quality (09/2023) for our med timer. </b>
+
+If you seek a multifunctional pill counter offering reliable medicine reminders, medication tracking, and stock monitoring, plus a mood tracker and med timer, MyTherapy is the health app you need.
+
+Download the MyTherapy pill tracker today to experience a top-rated reminder app, health app, pill counter, and med timer—supporting you to follow your health goals every day.
+
+Learn more about our health app at https://www.mytherapyapp.com/
+
+text: It is a great app to track my meds, I have set up alarms simultaneously for timely important meds, and it is very easy to just tick off meds everyday, solving my prob of not keeping a pill box. Great app so far.
+rating: 5
+
+text: ive been using this app for years now and its so handy! and so easy to use. helps remind me of medications, and helps me track activities like exercise and cleaning. donated $12 just now because ive been using it for free and i think it should continue to exist! theres no ads, the medication reminders are tweakable, its quick and smooth to use on my half-decade-old phone, the picture rewards at the end of the day are neat and fun, its easy to use and keep track of things, the list goes on. 10/10
+rating: 5
+
+text: Before the last update this was a great app. Now there is no way to delay or skip medication. Which sometimes happens. So now it does not track correctly. Waste of space on my phone so I will be deleting and install something else.
+rating: 1
+
+text: A very handy app for my adhd meds. What I would even love more would be them linked. Meaning that if I decide to take one chain later, the others would change with it. Like an interval for 3 hours. Instead of having to do it manually. Yes. What I mean is always a 3 hour interval (for example) so I don't mix up my time with my meds.
+rating: 4
+
+text: Needs to work on reminders. Reminds even in the middle of the night when the medicine is not to be taken. Needs to STOP reminders at some part of the day. It is 2.32 am IST now and it is reminding me of the meds to be taken in the morning at 8 am
+rating: 3
+
+text: Prior to finding this app, I have had to print spreadsheets out with medication times and measures. This app is not only extremely useful but goes beyond my expectations.  It can track multiple medication at different quantities at different times and on either daily basis or specified days. Their customer support is also amazing.very quick response and helpful. Thanks to them I now can track / timestamp the time I took a certain medication. Thank you
+rating: 5
+
+text: It's cool... does the job... custom reminders and pill inventory warning etc... especially good for multiple meds and different times for sick mofos like me. Syncs across devices... hell yeah 5 stars thanks guys!
+rating: 5
+
+text: I've been using this app for years to track my senior pets multiple medications and symtoms, and it is so helpful. My biggest issue is trying to track symptoms is a little frustrating, I wish we could manually create symptoms that aren't in the list the app has
+rating: 4
+
+text: This is really simple yer awesome app. I have 2 suggesation for this application makers. (1) Need watch app: I am Smaung Galaxy watch user. It will awsome to manage does on watch. So there will be no need to visit mobile again and again. (2) Allow user upload custome picture of medicine: This is provide quick visual cue for faster identification. Less hastle to read medicine name. User can quickly associate with actual medicine. Rest is awsome.
+rating: 4
+
+text: Also here after another long-standing app stuck their finger up at the chronic illness community and made subscription necessary for anything more than two meds. So thank you MyTherapy for stepping into fill the gap.
+rating: 5

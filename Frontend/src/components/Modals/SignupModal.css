@@ -1,0 +1,186 @@
+/* Auth Modal Shared Styles */
+.auth-modal .modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .auth-modal .modal-header {
+    padding: 2rem 2rem 1rem;
+  }
+  
+  .auth-title {
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 1.75rem;
+  }
+  
+  .auth-subtitle {
+    color: #718096;
+    margin-bottom: 0;
+  }
+  
+  .close-button {
+    color: #a0aec0;
+    padding: 0.5rem;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+  }
+  
+  .close-button:hover {
+    color: #718096;
+  }
+  
+  /* Form Elements */
+  .form-group-custom {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .input-group-custom {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #a0aec0;
+    z-index: 10;
+  }
+  
+  .form-control-custom {
+    padding-left: 3rem !important;
+    height: 48px;
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+  }
+  
+  .form-control-custom:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.15);
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 1rem;
+    color: #a0aec0;
+    z-index: 10;
+  }
+  
+  .password-toggle:hover {
+    color: #718096;
+  }
+  
+  /* Buttons */
+  .auth-btn {
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(78, 115, 223, 0.2);
+  }
+  
+  .social-btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  
+  .social-btn:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e0;
+  }
+  
+  /* Divider */
+  .divider {
+    position: relative;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  
+  .divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e2e8f0;
+    z-index: 1;
+  }
+  
+  .divider-text {
+    position: relative;
+    display: inline-block;
+    padding: 0 1rem;
+    background-color: white;
+    color: #718096;
+    z-index: 2;
+  }
+  
+  /* Footer Links */
+  .auth-footer-text {
+    color: #718096;
+    margin-bottom: 0;
+  }
+  
+  .auth-footer-link {
+    color: #4e73df !important;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .auth-footer-link:hover {
+    color: #3b56c0 !important;
+  }
+  
+  .forgot-password {
+    color: #718096 !important;
+    font-size: 0.875rem;
+    padding: 0;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .forgot-password:hover {
+    color: #4e73df !important;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .auth-modal .modal-header {
+      padding: 1.5rem 1.5rem 0.5rem;
+    }
+    
+    .auth-title {
+      font-size: 1.5rem;
+    }
+    
+    .close-button {
+      right: 1rem;
+      top: 1rem;
+    }
+  }

@@ -1,0 +1,6 @@
+httpx
+SQLAlchemy==2.0.36
+pgcli
+psycopg2-binary
+python-dotenv
+asyncpg

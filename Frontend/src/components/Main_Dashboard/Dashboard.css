@@ -1,0 +1,888 @@
+/* Base Styles */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+/* Simple App Name Display Styles - NO DROPDOWN */
+.selected-app-display {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.dark-mode .selected-app-display {
+  background-color: #374151;
+  border-color: #4b5563;
+}
+
+.app-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.dark-mode .app-label {
+  color: #9ca3af;
+}
+
+.app-name-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.75rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 6px;
+}
+
+.dark-mode .app-name-badge {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+/* Inline App Name Display for Compact Control Card */
+.selected-app-display-inline {
+  display: inline-flex;
+  align-items: center;
+}
+
+.app-name-simple {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 1rem;
+  padding: 0.375rem 0.75rem;
+  background-color: #e5e7eb;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.dark-mode .app-name-simple {
+  background-color: #4b5563;
+  color: #ffffff;
+  border-color: #6b7280;
+}
+
+/* Profile Dropdown Styles (Keep only for profile dropdown) */
+.dropdown {
+  position: relative !important;
+  z-index: 9998 !important;
+}
+
+.dropdown-menu {
+  border: 1px solid #e9ecef;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.375rem;
+  min-width: 200px;
+  z-index: 10050 !important;
+  position: absolute !important;
+}
+
+.dropdown.show .dropdown-menu {
+  z-index: 10051 !important;
+  display: block !important;
+}
+
+.dropdown-toggle {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0.5rem !important;
+}
+
+.dropdown-toggle:focus,
+.dropdown-toggle:active,
+.dropdown-toggle.show {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.btn-link {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.btn-link:hover {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.btn-link:focus {
+  box-shadow: none !important;
+}
+
+.dark-mode .dropdown-menu {
+  background-color: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+  z-index: 10050 !important;
+}
+
+/* Dropdown item styling */
+.dropdown-item {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  transition: all 0.15s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dark-mode .dropdown-item {
+  color: #e2e8f0;
+}
+
+.dark-mode .dropdown-item:hover {
+  background-color: #4a5568;
+  color: #fff;
+}
+
+.dropdown-divider {
+  margin: 0.5rem 0;
+  border-color: #e9ecef;
+}
+
+.dark-mode .dropdown-divider {
+  border-color: #4a5568;
+}
+
+/* Navbar z-index */
+.top-navbar {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10040 !important;
+  padding: 0 1rem;
+}
+
+/* Add these styles to your Dashboard.css */
+.reviews-table-container {
+  height: 400px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.reviews-table {
+  width: 100%;
+}
+
+.reviews-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.dark-mode .reviews-table thead th {
+  background-color: #212529;
+}
+
+.dark-mode .dropdown-menu {
+  background-color: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+  z-index: 10050 !important;
+}
+
+.dark-mode .top-navbar {
+  background-color: #1e293b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid #334155;
+}
+
+/* Scrollbar styling */
+.reviews-table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.reviews-table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.reviews-table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.dark-mode .reviews-table-container::-webkit-scrollbar-track {
+  background: #343a40;
+}
+
+.dark-mode .reviews-table-container::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+/* COMPACT CONTROL CARD - NEW STYLE FOR SMALLER SIZE */
+.compact-control-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  z-index: 1 !important; /* Lower z-index so dropdowns appear above */
+}
+
+.compact-control-card .card-body {
+  padding: 0.5rem 1rem !important;
+  min-height: auto;
+}
+
+.dark-mode .compact-control-card {
+  background-color: #334155;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* COMPACT METRIC CARD - NEW STYLE FOR SMALLER METRIC CARDS */
+.compact-metric-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  z-index: 1 !important; /* Lower z-index so dropdowns appear above */
+}
+
+.compact-metric-card .card-body {
+  padding: 1rem !important;
+}
+
+.compact-metric-card .metric-value {
+  font-size: 1.75rem !important;
+  margin-bottom: 0 !important;
+}
+
+.compact-metric-card .metric-value-large {
+  font-size: 2.5rem !important;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0 !important;
+}
+
+.dark-mode .compact-metric-card .metric-value-large {
+  color: #ffffff !important;
+}
+
+.compact-metric-card .sentiment-progress {
+  height: 20px !important;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sentiment-badge-compact {
+  font-size: 0.65rem !important;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem !important;
+}
+
+/* Dropdown Menu Full Width Fix */
+.dropdown-menu-full {
+  min-width: 150px !important;
+  width: auto !important;
+  white-space: nowrap;
+  z-index: 10050 !important;
+  position: absolute !important;
+}
+
+.dark-mode .compact-metric-card {
+  background-color: #334155;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.brand-title {
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode .brand-title {
+  color: #f8fafc;
+}
+
+.nav-icon {
+  color: #64748b;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+}
+
+.nav-icon:hover {
+  color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.1);
+  transform: scale(1.05);
+}
+
+.dark-mode .nav-icon {
+  color: #94a3b8;
+}
+
+.dark-mode .nav-icon:hover {
+  color: #60a5fa;
+  background-color: rgba(96, 165, 250, 0.1);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.35rem;
+  transform: translate(25%, -25%);
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: white;
+  border-right: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  min-height: calc(100vh - 60px);
+  z-index: 1000 !important; /* Lower than dropdowns */
+}
+
+.dark-mode .sidebar {
+  background-color: #1e293b;
+  border-right: 1px solid #334155;
+}
+
+.sidebar-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.2s ease;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-weight: 500;
+}
+
+.sidebar-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.dark-mode .sidebar-btn:hover {
+  background-color: #334155;
+}
+
+.sidebar-btn.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  background-color: #f8fafc;
+  min-height: calc(100vh - 60px);
+  z-index: 1 !important; /* Lower than dropdowns */
+}
+
+.dark-mode .main-content {
+  background-color: #1e293b;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 1 !important; /* Lower than dropdowns */
+}
+
+.dark-mode .card {
+  background-color: #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 1.5rem;
+}
+
+.dark-mode .card-header {
+  border-bottom: 1px solid #475569;
+}
+
+/* Dropdown item styling */
+.dropdown-item {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  transition: all 0.15s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dark-mode .dropdown-item {
+  color: #e2e8f0;
+}
+
+.dark-mode .dropdown-item:hover {
+  background-color: #4a5568;
+  color: #fff;
+}
+
+.dropdown-divider {
+  margin: 0.5rem 0;
+  border-color: #e9ecef;
+}
+
+.dark-mode .dropdown-divider {
+  border-color: #4a5568;
+}
+
+/* Metric Cards */
+.metric-card {
+  background-color: white;
+  z-index: 1 !important;
+}
+
+.dark-mode .metric-card {
+  background-color: #334155;
+}
+
+.metric-label {
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.dark-mode .metric-label {
+  color: #94a3b8;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.dark-mode .metric-value {
+  color: #f8fafc;
+}
+
+.metric-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 1rem 0;
+}
+
+.dark-mode .metric-divider {
+  background-color: #475569;
+}
+
+.metric-sub-label {
+  color: #64748b;
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.dark-mode .metric-sub-label {
+  color: #94a3b8;
+}
+
+.metric-sub-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.dark-mode .metric-sub-value {
+  color: #f8fafc;
+}
+
+.trend-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+}
+
+/* Charts */
+.chart-card {
+  background-color: white;
+  z-index: 1 !important;
+}
+
+.dark-mode .chart-card {
+  background-color: #334155;
+}
+
+.custom-tooltip {
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.custom-tooltip.dark {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: white;
+}
+
+.custom-tooltip .label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.custom-tooltip .value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.custom-tooltip .percent {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.dark-mode .custom-tooltip .percent {
+  color: #94a3b8;
+}
+
+/* Tables */
+.reviews-table th {
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 1rem 1.5rem;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dark-mode .reviews-table th {
+  color: #94a3b8;
+  background-color: #334155;
+  border-bottom: 1px solid #475569;
+}
+
+.reviews-table td {
+  padding: 1rem 1.5rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dark-mode .reviews-table td {
+  border-bottom: 1px solid #475569;
+}
+
+.reviews-table tr:last-child td {
+  border-bottom: none;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  font-weight: 600;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.dark-mode .user-name {
+  color: #f8fafc;
+}
+
+.review-time {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.dark-mode .review-time {
+  color: #94a3b8;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.star-rating .filled {
+  color: #F59E0B;
+}
+
+.dark-mode .star-rating .filled {
+  color: #FBBF24;
+}
+
+.review-text {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sentiment-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+}
+
+.source-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  background-color: #e2e8f0;
+  color: #64748b;
+}
+
+.dark-mode .source-badge {
+  background-color: #475569;
+  color: #94a3b8;
+}
+
+/* App Summary Styles */
+.app-badge {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.app-badge:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Feature Requests List */
+.feature-requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.feature-request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+}
+
+.dark-mode .feature-request-item {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.feature-name {
+  font-weight: 500;
+}
+
+.feature-count {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.dark-mode .feature-count {
+  color: #94a3b8;
+}
+
+/* Sentiment Colors */
+.sentiment-badge.positive {
+  background-color: #10B981;
+}
+
+.sentiment-badge.neutral {
+  background-color: #FBBF24;
+  color: #000;
+}
+
+.sentiment-badge.negative {
+  background-color: #EF4444;
+}
+
+.dark-mode .sentiment-badge.neutral {
+  color: #1e293b;
+}
+
+/* Dark Mode Text Color - White */
+.dark-mode {
+  color: #ffffff;
+}
+
+.dark-mode .card,
+.dark-mode .metric-card,
+.dark-mode .chart-card,
+.dark-mode .card-header,
+.dark-mode .card-body,
+.dark-mode .table,
+.dark-mode .table th,
+.dark-mode .table td,
+.dark-mode .dropdown-menu,
+.dark-mode .popover,
+.dark-mode .popover-header,
+.dark-mode .list-group-item {
+  color: #ffffff;
+}
+
+/* Recent Reviews Dark Mode Section */
+.dark-mode .reviews-table {
+  --bs-table-bg: #1f2937;
+  --bs-table-striped-bg: #1e293b;
+  --bs-table-hover-bg: #334155;
+  --bs-table-color: #ffffff;
+}
+
+.dark-mode .reviews-table th {
+  background-color: #334155;
+  border-bottom: 1px solid #475569;
+  color: #cbd5e1;
+}
+
+.dark-mode .reviews-table td {
+  border-bottom: 1px solid #475569;
+  color: #ffffff;
+}
+
+.dark-mode .user-name {
+  color: #ffffff !important;
+}
+
+.dark-mode .review-time {
+  color: #cbd5e1 !important;
+}
+
+.dark-mode .review-text {
+  color: #e2e8f0;
+}
+
+.dark-mode .star-rating .filled {
+  color: #FBBF24;
+}
+
+.dark-mode .sentiment-badge {
+  color: white !important;
+}
+
+/* Weekly Reviews Chart - Dark Mode */
+.dark-mode .chart-card .card-header {
+  border-bottom: 1px solid #475569;
+  color: #ffffff;
+}
+
+.dark-mode .recharts-cartesian-axis-tick text {
+  fill: #cbd5e1 !important;
+}
+
+.dark-mode .recharts-cartesian-axis-line {
+  stroke: #64748b !important;
+}
+
+.dark-mode .recharts-cartesian-grid line {
+  stroke: #475569 !important;
+}
+
+.dark-mode .recharts-tooltip-wrapper {
+  background-color: #1f2937 !important;
+  border: 1px solid #64748b !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .recharts-bar-rectangle {
+  fill: #3b82f6 !important;
+}
+
+.dark-mode .recharts-legend-item-text {
+  color: #ffffff !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    min-height: auto;
+    z-index: 1030;
+    border-right: none;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .dark-mode .sidebar {
+    border-top: 1px solid #475569;
+  }
+  
+  .sidebar nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+  
+  .sidebar-btn {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+    white-space: nowrap;
+  }
+  
+  .main-content {
+    margin-bottom: 70px;
+  }
+}

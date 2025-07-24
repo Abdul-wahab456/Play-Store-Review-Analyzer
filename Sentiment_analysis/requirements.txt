@@ -1,0 +1,21 @@
+celery==5.5.1
+fastapi==0.115.12
+httpx==0.28.1
+scipy==1.15.2
+SQLAlchemy==2.0.40
+sqlmodel==0.0.24
+transformers==4.51.2
+uvicorn
+huggingface_hub[hf_xet]
+redis
+# psycopg2
+psycopg2-binary
+python-dotenv==1.1.0
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl#sha256=1932429db727d4bff3deed6b34cfc05df17794f4a52eeb26cf8928f7c1a0fb85
+nltk
+spacy
+tensorflow
+tensorflow-cpu
+scikit-learn
+statsmodels
+pandas

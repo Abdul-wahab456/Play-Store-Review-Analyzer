@@ -1,0 +1,49 @@
+services:
+  fastapi:
+    build: .
+    container_name: fastapi_app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - fyp-network
+    # restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code 
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - DB_URL=postgresql://postgres:postgres@postgres:5432/play_store_apps
+
+  celery:
+    build: .
+    container_name: celery_worker
+    command: celery -A app.tasks worker --loglevel=info --concurrency=2 --prefetch-multiplier=1
+    networks:
+      - fyp-network
+    # restart: always
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+      - fastapi
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - DB_URL=postgresql://postgres:postgres@postgres:5432/play_store_apps
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis_broker
+    ports:
+      - "6379:6379"
+    networks:
+      - fyp-network
+    volumes:
+      - ./redis_data:/data
+
+networks:
+  fyp-network:
+    external: true

@@ -1,0 +1,457 @@
+/* CompetitorAnalysis.css - Updated with Beautiful App Selection */
+
+/* App Selection Card */
+.app-selection-card {
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+}
+
+.dark-mode .app-selection-card {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.app-selection-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.dark-mode .app-selection-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: #6b7280;
+}
+
+.dark-mode .section-title {
+  color: #9ca3af;
+}
+
+/* App Display Container */
+.selected-app-display {
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: #f1f5f9;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode .selected-app-display {
+  background-color: #475569;
+  color: #f1f5f9;
+}
+
+.selected-app-display:hover {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.dark-mode .selected-app-display:hover {
+  border-color: #60a5fa;
+  background-color: #1e40af;
+}
+
+/* App Info Layout */
+.app-info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.app-icon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+  min-width: 32px;
+}
+
+.app-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1f2937;
+  margin-bottom: 0.1rem;
+}
+
+.dark-mode .app-name {
+  color: #f9fafb;
+}
+
+.app-publisher {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.dark-mode .app-publisher {
+  color: #d1d5db;
+}
+
+/* VS Badge */
+.vs-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.vs-badge {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Competitor Dropdown */
+.competitor-dropdown {
+  width: 100%;
+}
+
+.competitor-dropdown-toggle {
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  background-color: #ffffff;
+  min-height: 70px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode .competitor-dropdown-toggle {
+  background-color: #374151;
+  border-color: #6b7280;
+  color: #f9fafb;
+}
+
+.competitor-dropdown-toggle:hover,
+.competitor-dropdown-toggle:focus {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dark-mode .competitor-dropdown-toggle:hover,
+.dark-mode .competitor-dropdown-toggle:focus {
+  border-color: #60a5fa;
+  background-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+.dropdown-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.dropdown-arrow {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.competitor-dropdown.show .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.competitor-dropdown-menu {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  min-width: 100%;
+}
+
+.dark-mode .competitor-dropdown-menu {
+  background-color: #374151;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.competitor-dropdown-item {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.25rem;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.competitor-dropdown-item:hover {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.dark-mode .competitor-dropdown-item:hover {
+  background-color: #1e40af;
+  color: #f1f5f9;
+}
+
+.competitor-dropdown-item.active {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+}
+
+.competitor-dropdown-item.active:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+}
+
+/* Feature Comparison Badges */
+.feature-comparison-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Base Card Styles */
+.competitor-card {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.competitor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Header */
+.competitor-card .card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: none;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.dark-mode .competitor-card .card-header {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+}
+
+/* Table Styling */
+.competitor-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.competitor-table thead th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 1rem 1.5rem;
+  border: none;
+}
+
+.dark-mode .competitor-table thead th {
+  background-color: #1a2035;
+  color: #e9ecef;
+}
+
+.competitor-table tbody td {
+  padding: 1.25rem 1.5rem;
+  vertical-align: middle;
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s ease;
+}
+
+.dark-mode .competitor-table tbody td {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #f8f9fa;
+}
+
+.competitor-table tbody tr:hover td {
+  background-color: rgba(110, 142, 251, 0.05);
+}
+
+.dark-mode .competitor-table tbody tr:hover td {
+  background-color: rgba(75, 108, 183, 0.1);
+}
+
+/* Feature Badges */
+.feature-badge {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.feature-badge-present {
+  background-color: rgba(40, 167, 69, 0.15);
+  color: #28a745;
+}
+
+.dark-mode .feature-badge-present {
+  background-color: rgba(40, 167, 69, 0.25);
+  color: #7af19c;
+}
+
+.feature-badge-missing {
+  background-color: rgba(108, 117, 125, 0.15);
+  color: #6c757d;
+}
+
+.dark-mode .feature-badge-missing {
+  background-color: rgba(108, 117, 125, 0.25);
+  color: #ced4da;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.competitor-table tbody tr {
+  animation: fadeIn 0.4s ease forwards;
+  animation-delay: calc(var(--row-index) * 0.05s);
+  opacity: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .app-selection-card .card-body {
+    padding: 1rem;
+  }
+  
+  .selected-app-display,
+  .competitor-dropdown-toggle {
+    min-height: 60px;
+    padding: 0.75rem;
+  }
+  
+  .app-icon {
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+  }
+  
+  .app-name {
+    font-size: 0.85rem;
+  }
+  
+  .app-publisher {
+    font-size: 0.7rem;
+  }
+  
+  .vs-badge {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .competitor-card .card-header {
+    padding: 1rem;
+  }
+  
+  .competitor-table thead th,
+  .competitor-table tbody td {
+    padding: 0.75rem;
+  }
+  
+  .feature-badge {
+    min-width: 50px;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* Glow Effect for Current App */
+.current-app-feature {
+  position: relative;
+}
+
+.current-app-feature::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #6e8efb, #a777e3, #6e8efb);
+  background-size: 200% 200%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.current-app-feature:hover::after {
+  opacity: 0.6;
+  animation: gradientGlow 2s ease infinite;
+}
+
+@keyframes gradientGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Smooth Scroll for Table */
+.competitor-table-container {
+  max-height: 500px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6e8efb transparent;
+}
+
+.competitor-table-container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.competitor-table-container::-webkit-scrollbar-thumb {
+  background-color: #6e8efb;
+  border-radius: 3px;
+}
+
+.dark-mode .competitor-table-container::-webkit-scrollbar-thumb {
+  background-color: #4b6cb7;
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+.loading-shimmer {
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.dark-mode .loading-shimmer {
+  background: linear-gradient(to right, #374151 8%, #4b5563 18%, #374151 33%);
+}

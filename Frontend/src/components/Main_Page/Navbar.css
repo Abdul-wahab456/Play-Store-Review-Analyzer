@@ -1,0 +1,481 @@
+/* Enhanced Navbar Styles */
+
+/* Import Google Fonts for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* CSS Variables for consistent theming */
+:root {
+  --primary-blue: #667eea;
+  --primary-purple: #764ba2;
+  --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  --text-dark: #1a1a1a;
+  --text-muted: #6b7280;
+  --white: #ffffff;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+  --border-radius: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navbar Base Styles */
+.navbar-custom {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1rem 0;
+  transition: var(--transition);
+  z-index: 1050;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.navbar-custom.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(25px);
+  box-shadow: var(--shadow-md);
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+/* Navbar Border Animation */
+.navbar-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.navbar-custom:hover .navbar-border {
+  transform: scaleX(1);
+}
+
+/* Enhanced Brand Styles */
+.brand-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none !important;
+  transition: var(--transition);
+  position: relative;
+}
+
+.brand-container:hover {
+  transform: translateY(-1px);
+}
+
+.logo-wrapper {
+  position: relative;
+  margin-right: 12px;
+}
+
+.logo-background {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transition: var(--transition);
+}
+
+.brand-container:hover .logo-background {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.brand-logo {
+  height: 28px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: var(--transition);
+}
+
+.logo-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  transform: scale(1.2);
+  filter: blur(10px);
+}
+
+.brand-container:hover .logo-glow {
+  opacity: 0.3;
+}
+
+.brand-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.text-gradient {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.brand-tagline {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-top: -2px;
+}
+
+/* Logo Fix - Remove Toggle Button */
+
+/* Enhanced Navigation Links */
+.navbar-collapse-custom {
+  border-top: none !important;
+}
+
+.navbar-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+}
+
+.nav-item-wrapper {
+  position: relative;
+}
+
+.nav-link-modern {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-link-modern:hover {
+  color: var(--primary-blue);
+  background: rgba(102, 126, 234, 0.08);
+  transform: translateY(-1px);
+}
+
+.nav-text {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+.nav-icon {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.nav-link-modern:hover .nav-icon {
+  transform: translateY(1px);
+}
+
+.nav-hover-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-link-modern:hover .nav-hover-effect {
+  left: 100%;
+}
+
+/* Pricing Highlight */
+.pricing-highlight {
+  position: relative;
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--gold-gradient);
+  color: var(--text-dark);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Enhanced Auth Buttons */
+.navbar-auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-signin {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px !important;
+  background: rgba(102, 126, 234, 0.1) !important;
+  border: 1px solid rgba(102, 126, 234, 0.2) !important;
+  color: var(--primary-blue) !important;
+  font-weight: 500 !important;
+  border-radius: 10px !important;
+  transition: var(--transition) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-signin:hover {
+  background: rgba(102, 126, 234, 0.15) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2) !important;
+  color: var(--primary-blue) !important;
+}
+
+.btn-signup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px !important;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  transition: var(--transition) !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-signup:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
+  color: white !important;
+}
+
+.btn-icon {
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.btn-signup:hover .btn-icon {
+  transform: scale(1.1);
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-signup:hover .btn-glow {
+  left: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .navbar-nav-center {
+    gap: 0.25rem;
+  }
+  
+  .nav-link-modern {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-custom {
+    padding: 0.75rem 0;
+  }
+  
+  .navbar-collapse-custom {
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar-nav-center {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .nav-link-modern {
+    width: 100%;
+    justify-content: space-between;
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+  
+  .navbar-auth-buttons {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .btn-signin,
+  .btn-signup {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px 24px !important;
+    font-size: 1rem !important;
+  }
+  
+  .brand-text {
+    font-size: 1.3rem;
+  }
+  
+  .logo-background {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .brand-logo {
+    height: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-text {
+    font-size: 1.2rem;
+  }
+  
+  .brand-tagline {
+    font-size: 0.7rem;
+  }
+  
+  .logo-background {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .brand-logo {
+    height: 24px;
+  }
+  
+  .navbar-collapse-custom {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .brand-text-container {
+    display: none;
+  }
+  
+  .logo-wrapper {
+    margin-right: 0;
+  }
+  
+  .navbar-collapse-custom {
+    margin-top: 0.75rem;
+    padding: 1rem 0.75rem;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Add entrance animation to navbar collapse */
+.navbar-collapse-custom.show {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Hover effects for better interactivity */
+.navbar-custom:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Focus states for accessibility */
+.nav-link-modern:focus,
+.btn-signin:focus,
+.btn-signup:focus,
+.navbar-toggler-custom:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
