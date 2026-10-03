@@ -1,574 +1,143 @@
-**Group ID:** F24DS004  
-**Project Advisor:** Dr. Naveed Hussain  
+# Play Store Review Analyzer
+
+CompFeat (Comparative Feature Advantage Scoring) is a research prototype for extracting candidate app features from Google Play reviews and ranking them by review-level sentiment differences between two apps. It is intended to help product and engineering teams triage review themes; its ranking scores are not validated measures of product quality or causal feature advantage.
+
+**Evidence boundary:** the repository contains batch scraping and offline benchmark scripts. It does not currently implement a live streaming pipeline, report a measured per-review latency or memory benchmark, or document an industry deployment study. Those claims should not be inferred from this project.
+
+## System overview
+
+1. `scrape_real_reviews.py` fetches up to 300 newest English (US) reviews for each of 52 configured Google Play package IDs and checkpoints data after each app to `data/benchmark_real_52_apps.json`.
+2. `extractors/feature_extractor.py` extracts short noun/adjective feature phrases using spaCy's English dependency parser; a lexical chunk fallback is available if the parser model is missing.
+3. `Feature-Extraction/competitor_recommender.py` detects local positive/negative lexicon evidence near feature mentions.
+4. `scorers/cfas_engine.py` applies smoothed comparative scoring to target/competitor counts. Results are ranked by score for offline analysis.
+5. `evaluation/evaluator.py` and `evaluate_recommendation_benchmark.py` compare rankings with the benchmark's hand-authored ground-truth phrases.
+
+The Google Play scraper makes network requests. Scoring and MiniLM evaluation run locally after their dependencies and model weights are installed; the pipeline does not make an LLM API call. Initial model installation requires downloading artifacts. No measured CPU throughput or memory footprint is currently recorded.
+
+## Core capabilities and limitations
+
+- Competitor-aware comparison of review sentiment instead of analyzing each app in isolation.
+- Closed-form, inspectable CFAS calculation; no generative model is used to compute scores.
+- Optional local `all-MiniLM-L6-v2` semantic similarity for benchmark alignment.
+- Checkpointed batch review retrieval that can resume completed app-side fetches.
+- Candidate phrases can be inspected alongside their mention counts and score components.
+
+This code is an offline prototype, not a demonstrated millisecond streaming service. The included scrape is a sequential batch job, and the repository does not contain a streaming ingestion command or an end-to-end sprint-backlog integration. Claims about lower GPU cost or API spend than a particular LLM system have not been benchmarked here.
+
+## Benchmark results
+
+### Historical recorded run (original implementation)
+
+The following is the exact table recorded for the original benchmark run. It is retained as a historical result and is **not** a result reproduced by the current implementation below.
+
+| Method               | MRR   | Hit@1 | Hit@3 | Hit@5 |
+| -------------------- | ----- | ----- | ----- | ----- |
+| Negative Frequency   | 0.015 | 0.000 | 0.000 | 0.021 |
+| Raw Frequency        | 0.066 | 0.021 | 0.042 | 0.062 |
+| SAFE / KEFE          | 0.112 | 0.062 | 0.125 | 0.125 |
+| SAFER-Style          | 0.081 | 0.042 | 0.042 | 0.062 |
+| CompFeat (This Work) | 0.052 | 0.021 | 0.021 | 0.083 |
+
+### Current implementation, measured 2026-09-28
+
+Re-running `evaluate_recommendation_benchmark.py` with the current scorer, dependency-guided extraction, MiniLM semantic backend, and a 500-candidate cap produced:
+
+| Method             |   MRR | Hit@1 | Hit@3 | Hit@5 | Precision@5 | Recall@5 |
+| ------------------ | ----: | ----: | ----: | ----: | ----------: | -------: |
+| Raw Frequency      | 0.057 | 0.000 | 0.042 | 0.146 |       0.029 |    0.049 |
+| Negative Frequency | 0.033 | 0.021 | 0.042 | 0.042 |       0.008 |    0.014 |
+| SAFE / KEFE        | 0.081 | 0.021 | 0.104 | 0.125 |       0.025 |    0.042 |
+| SAFER-Style        | 0.089 | 0.021 | 0.125 | 0.167 |       0.033 |    0.056 |
+| CompFeat           | 0.032 | 0.021 | 0.021 | 0.021 |       0.004 |    0.007 |
+
+This run evaluated 48 directions from 24 app pairs; 4 directions were skipped because one app side had no reviews. CompFeat did **not** outperform the baselines in this run. Results are specific to the configured review snapshot, candidate cap, sentiment lexicon, semantic threshold, and ground-truth labels; they should not be presented as evidence of benchmark superiority.
+
+### Interpretation and evaluation caveats
+
+- Informal review wording can differ from the hand-authored reference phrases. The current evaluator uses MiniLM cosine similarity with a 0.78 threshold, exact normalized text matching, and token-set inclusion/overlap (inclusion is assigned 0.85). This reduces, but does not eliminate, lexical mismatch; semantic thresholds still need validation against human judgments.
+- Ground-truth phrases are stored in the benchmark configuration and are not documented as independently annotated by multiple reviewers. Their coverage and label quality limit the conclusions that can be drawn.
+- The historical exact-string-style metrics and the current semantic metrics use different evaluation implementations and are not directly comparable. Use the current run for current-code claims.
+- `Hit@k` is 1 when at least one relevant candidate appears in the first `k` ranks. MRR uses the reciprocal rank of the first relevant candidate. Precision@5 and Recall@5 use unique ground-truth phrases matched among the first five ranked candidates. Relevance is defined by the evaluator's configured similarity threshold, not by exact equality alone.
+- A top-five retrieval rate can be operationally useful, but this benchmark does not measure engineering-team utility, sprint outcomes, or the value of an individual retrieved feature.
+
+## CFAS scoring
+
+For app A and app B, let `pos` and `neg` be accumulated review-level polarity evidence and `T` the number of reviews mentioning a candidate. Defaults are `alpha=1`, `beta=2`, negative weight `lambda=1.25`, and target salience `kappa=0.5`:
+
+$$
+S_X(f)=\frac{P_X(f)-\lambda N_X(f)+\alpha}{T_X(f)+\alpha+\beta},\qquad
+\operatorname{CFAS}(f)=\log_2(1+T_A+T_B)\,[S_A(f)-S_B(f)]\,[1-e^{-\kappa T_A(f)}].
+$$
+
+When both mention counts are zero, the scorer returns 0. When only competitor count is zero, its smoothed sentiment is `alpha/(alpha+beta)`; there is no division by zero. There is no hard mention threshold in the scorer. The benchmark first limits the union of candidates to the 500 with greatest combined extraction frequency. The recommender's profile method also omits candidates absent from the target reviews. The profile's reported specificity weight is diagnostic metadata and is not multiplied into the calibrated score.
+
+On the current dataset and benchmark candidate cap, a directional score audit found **9,925 target-present candidate-direction records** with observed CFAS values from **-2.7748** to **1.9009** (median **-0.0328**, mean **-0.0439**, 5th/95th percentiles **-0.2590 / 0.0668**). Observed smoothed target polarity ranged from **-0.775** to **0.800**; competitor polarity ranged from **-0.775** to **0.800**. These are run-specific descriptive statistics, not theoretical bounds. With the implemented formula, smoothed polarity approaches `-1.25` and `+1` as counts grow under the scorer's count constraints; the log frequency multiplier means CFAS itself has no fixed `[-1, 1]` bound. Because the directional audit scoring routine was optimized separately from the five-way benchmark ranking loop, the CFAS descriptive distribution should be treated as an audit sample, not the empirical output score distribution of every ranked feature in the benchmark.
+
+## Repository layout
+
+```text
+data/                         Scraped review benchmark JSON
+extractors/                   Dependency-guided feature extraction
+scorers/                      Calibrated CFAS scoring
+evaluation/                   Semantic evaluator
+Feature-Extraction/            Existing KEFE modules and CompFeat recommender
+Frontend/                      Web client
+Backend/                       Django API and application code
+Sentiment_analysis/            Sentiment-analysis components
+Spiders/                       Scrapy review collection code
+Flowchart-Diagrams/            Project diagrams
+scrape_real_reviews.py         Checkpointed Google Play batch scraper
+evaluate_recommendation_benchmark.py  Five-method offline benchmark
+```
+
+There is no top-level `ui/` directory; the frontend lives in `Frontend/`.
+
+## Getting started
+
+### Create an environment and install the analysis dependencies
+
+From the repository root (PowerShell):
+
+```powershell
+py -3.14 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+The root requirements install the Google Play scraper, numerical/data-science packages, spaCy, its configured English model, and Sentence Transformers. If installing the parser separately, use:
+
+```powershell
+python -m pip install spacy
+python -m spacy download en_core_web_sm
+```
+
+The evaluator loads `sentence-transformers/all-MiniLM-L6-v2` locally. Its first use downloads the model; ensure network access and sufficient disk space. If the package/model cannot load, the evaluator reports and uses its character n-gram TF-IDF fallback, which is a different evaluation backend.
+
+### Scrape reviews
+
+```powershell
+python scrape_real_reviews.py
+```
+
+This fetches newest English (US) reviews, up to 300 per package ID, and checkpoints to `data/benchmark_real_52_apps.json`. A failed or unavailable Play Store package may yield no reviews; inspect the resulting counts before interpreting the benchmark. The script is batch scraping, not a continuous stream consumer.
+
+### Run evaluation
+
+```powershell
+python evaluate_recommendation_benchmark.py
+```
+
+The script prints aggregate metrics for Raw Frequency, Negative Frequency, SAFE / KEFE, SAFER-Style, and CompFeat. It reports skipped directions and the semantic backend. A timed rerun on the current workstation took approximately **117 seconds** including MiniLM initialization. This is one end-to-end benchmark duration, not a per-review streaming latency. For reproducible comparisons, retain the dataset snapshot, dependency/model versions, candidate cap, and evaluator threshold with the results.
+
+## Project team
+
+**Group:** F24DS004
+**Advisor:** Dr. Naveed Hussain
 **University:** University of Central Punjab, Faculty of Information Technology
 
-| Team Member | Role | Responsibilities |
-|-------------|------|------------------|
-| **Abdul Wahab** | Backend Developer | Django development, API design, ML integration |
-| **Muhammad Hassaan** | Documentation & Testing Lead | Test case development, QA, documentation |
-| **Sohaib Tanveer** | Frontend Developer | ReactJS development, UI/UX design, dashboard |
-# Enhancing App Features Through Real-time User Reviews
-
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
-[![Django](https://img.shields.io/badge/django-5.0+-green.svg)](https://djangoproject.com)
-[![React](https://img.shields.io/badge/react-18.0+-blue.svg)](https://reactjs.org)
-[![AWS](https://img.shields.io/badge/AWS-deployed-orange.svg)](https://aws.amazon.com)
-
-A comprehensive web application that helps app developers automatically analyze real-time user feedback to improve their applications through advanced Natural Language Processing (NLP) and Machine Learning techniques.
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [System Architecture](#system-architecture)
-- [User Manual](#User-Manual)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Project Roadmap](#project-roadmap)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [Team](#team)
-
-## 🎯 Overview
-
-The project aims to enhance app development by leveraging **real-time user feedback from App Stores** through advanced **Natural Language Processing (NLP)** techniques. It automatically analyzes user reviews to identify common themes, issues, and feature requests, providing actionable insights and recommendations for app improvements.
-
-### **Objectives/Aims/Targets (New objectives to add)**
-
-- To implement automated fake review detection and filtering mechanisms for improved data quality
-- To provide developer feedback loop integration allowing system learning and recommendation refinement
-- To ensure 99.9% system uptime through robust cloud infrastructure and monitoring
-- To support multi-platform review analysis (future scope for iOS App Store integration)
-
-### 🔑 **Key Capabilities**
-- **Intelligent Review Analysis:** Automatically processes thousands of user reviews to extract meaningful insights
-- **Theme & Issue Detection:** Identifies common patterns, problems, and feature requests from user feedback  
-- **Real-time Processing:** Provides immediate analysis of new reviews as they arrive
-- **Competitive Intelligence:** Compares app performance and features against competitors
-- **Developer-Centric Dashboard:** Intuitive visualization of user satisfaction levels and improvement opportunities
-
-### 🎯 **Core Features**
-- **Smart Dashboard:** Visualizes user satisfaction levels, suggests new features, and highlights necessary bug fixes
-- **Urgent Issue Detection:** Automatically identifies and prioritizes critical problems requiring immediate attention  
-- **Review Summarization:** Condenses large volumes of feedback into easily digestible insights
-- **Competitive Analysis:** Enables developers to benchmark their app's performance against competitors
-- **Feedback Loop Integration:** Allows developers to contribute insights that refine the system's recommendations over time
-- **Actionable Recommendations:** Transforms raw user feedback into specific, implementable improvement suggestions
-
-### 💼 **Business Impact**
-This comprehensive approach empowers developers to **streamline the app improvement process** and **gain a competitive edge** by better understanding user needs. By automating the traditionally manual and time-intensive process of review analysis, developers can focus on building features that truly matter to their users.
-
-### Problem Statement
-- Manual review analysis is time-consuming and requires significant human resources
-- Difficulty in identifying patterns and priorities from thousands of reviews
-- Lack of real-time insights for rapid response to user concerns
-- No comprehensive competitor analysis and benchmarking tools
-- Missing systematic approach to feature prioritization based on user sentiment
-
-### Solution
-Our system provides a complete end-to-end solution for real-time app review analysis with advanced NLP capabilities, competitive benchmarking, and developer-friendly visualizations that transform user feedback into actionable business intelligence.
-
-## ✨ Features
-
-### 🔍 **Real-Time Review Analysis**
-- Automated scraping of app reviews from multiple sources
-- Real-time processing and immediate insights
-- Support for multiple app store platforms
-
-### 💭 **Advanced Sentiment Analysis**
-- Multi-class sentiment classification (Positive, Negative, Neutral)
-- Aspect-based sentiment analysis for specific features
-- Temporal sentiment trend analysis
-- **Current Accuracy:** 82.3% using fine-tuned RoBERTa model
-
-### 🎯 **Feature Identification & Extraction**
-- Automatic extraction of user-requested features
-- Bug report and issue identification
-- Feature prioritization based on user sentiment
-- N-gram analysis for common phrases and themes
-
-### 📊 **Competitor Analysis**
-- Feature comparison with competitor apps
-- Market gap identification
-- Competitive benchmarking insights
-- Performance comparison metrics
-
-### 📈 **Interactive Dashboard**
-- Real-time data visualizations
-- Customizable filtering options (security, performance, etc.)
-- Downloadable reports and insights
-- Mobile-responsive design
-
-### 🔒 **Authentication & Security**
-- Secure user authentication (Email/Password)
-- JWT-based session management
-- HTTPS/TLS encryption
-- Payment processing integration
-
-## 🛠 Technology Stack
-
-### **Frontend**
-- **Framework:** ReactJS 18.0+
-- **Styling:** Tailwind CSS
-- **Charts:** Recharts, D3.js
-- **Deployment:** AWS EC2
-
-### **Backend**
-- **Framework:** Django 5.0+ with Django REST Framework
-- **Language:** Python 3.12+
-- **Authentication:** JWT
-- **API Architecture:** RESTful APIs
-
-### **Database**
-- **Primary:** PostgreSQL (AWS RDS)
-- **ORM:** Django ORM
-- **Backup:** Automated AWS RDS backups
-
-### **Machine Learning & NLP**
-- **Libraries:** scikit-learn, NLTK, Transformers (Hugging Face)
-- **Models:** 
-  - Sentiment Analysis: `cardiffnlp/twitter-roberta-base-sentiment-latest`
-  - Feature Extraction: Custom TF-IDF + LDA models
-  - Text Processing: spaCy, NLTK
-- **Framework:** PyTorch for model fine-tuning
-
-### **Data Collection**
-- **Web Scraping:** Python Scrapy (Spiders)
-- **APIs:** Google Play Store API, Third-party review APIs
-- **Processing:** Pandas, NumPy
-
-### **Cloud Infrastructure**
-- **Platform:** Amazon Web Services (AWS)
-- **Compute:** EC2 instances with Auto Scaling
-- **Database:** RDS Multi-AZ deployment
-- **Storage:** S3 for logs and static files
-- **Monitoring:** CloudWatch
-- **Functions:** Lambda for serverless processing
-
-## 🏗 System Architecture
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │   Backend       │    │   Database      │
-│   (ReactJS)     │◄──►│   (Django)      │◄──►│  (PostgreSQL)   │
-│   AWS EC2       │    │   AWS EC2       │    │   AWS RDS       │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       
-         │                       │                       
-         ▼                       ▼                       
-┌─────────────────┐    ┌─────────────────┐              
-│   ML/NLP        │    │   Data Sources  │              
-│   Models        │    │   (Scrapy +     │              
-│   (PyTorch)     │    │    APIs)        │              
-└─────────────────┘    └─────────────────┘              
-```
-
-### **Architecture Highlights**
-- **Modular Design:** Clean separation between frontend, backend, and ML components
-- **Scalable:** AWS Auto Scaling groups for high-load situations
-- **Secure:** HTTPS, JWT authentication, encrypted data storage
-- **Real-time:** WebSocket support for live updates
-- **Cloud-Native:** Leverages AWS services for reliability and scalability
-
-### 🌐 User Manual
-## 🛠️ Troubleshooting Common Issues
-
-### 🔐 Login / Authentication Problems
-- **Issue:** Unable to log in or access restricted areas.
-- **Solution:** Ensure credentials are correct and that cookies or localStorage are enabled. If using OAuth, enable third-party cookies.
-
-### 💳 Payment Processing Failures
-- **Issue:** Payments not going through or showing errors.
-- **Solution:** Verify payment gateway API keys, and ensure proper internet connectivity. Check transaction logs for specific errors.
-
-### 🐢 Data Loading Delays
-- **Issue:** Dashboard takes too long to load data.
-- **Solution:** Confirm backend services are running, database queries are optimized, and the ML pipeline is responsive.
-
-### 🌐 Browser Compatibility Issues
-- **Issue:** Some UI elements are not displaying or behaving correctly.
-- **Solution:** Use updated versions of Chrome, Firefox, or Edge. Clear browser cache and disable conflicting extensions.
-
-### 📶 Network Connectivity Problems
-- **Issue:** App fails to load or loses connection intermittently.
-- **Solution:** Check internet connection stability. Ensure WebSocket and API endpoints are accessible and not blocked by firewalls.
-
----
-
-## 🚀 Advanced Features
-### 🔍 Filtering and Sorting in Dashboard
-- Easily filter reviews by rating, sentiment, keywords, or date range.
-- Sort feature suggestions based on urgency, frequency, or impact.
-
-### 📤 Exporting Data and Reports
-- Export dashboards or insights in CSV, JSON, or PDF formats.
-- Download visualizations and charts for offline use or presentations.
-
-### 🔔 Setting Up Automated Alerts
-- Create alerts for negative trends, repeated bug mentions, or urgent reviews.
-- Get notified via email, SMS, or third-party integrations like Slack.
-
-### 🎨 Customizing Dashboard Views
-- Switch between dark and light themes.
-- Reorder widgets, select metrics, and personalize layout according to team needs.
-
-
-## 🚀 Installation
-
-### **Prerequisites**
-- Python 3.12+
-- Django
-- PostgreSQL 12+
-- AWS Account (for deployment)
-
-### **Backend Setup**
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/your-org/app-review-analyzer.git
-cd app-review-analyzer/backend
-```
-
-2. **Create virtual environment**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. **Install dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Environment Configuration**
-```bash
-cp .env.example .env
-# Edit .env file with your configurations:
-# - Database credentials
-# - AWS credentials
-# - Google OAuth keys
-# - Secret keys
-```
-
-5. **Database Setup**
-```bash
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser
-```
-
-6. **Download ML Models**
-```bash
-python manage.py download_models
-```
-
-### **Frontend Setup**
-
-1. **Navigate to frontend directory**
-```bash
-cd ../frontend
-```
-
-2. **Install dependencies**
-```bash
-npm install
-```
-
-3. **Environment Configuration**
-```bash
-cp .env.example .env
-# Configure API endpoints and OAuth keys
-```
-
-4. **Start development server**
-```bash
-npm start
-```
-
-### **Data Collection Setup**
-
-1. **Configure Scrapy spiders**
-```bash
-cd ../data_collection
-pip install scrapy pandas
-```
-
-2. **Run initial data collection**
-```bash
-scrapy crawl app_reviews -a app_id="com.example.app"
-```
-
-## 📖 Usage
-
-### **For Developers**
-
-1. **Sign Up/Login**
-   - Create account
-   - Complete payment process for premium features
-
-2. **App Analysis**
-   - Enter your app name/package ID
-   - System automatically fetches and analyzes reviews
-   - Access real-time insights through dashboard
-
-3. **Dashboard Features**
-   - **Sentiment Analysis:** View positive/negative/neutral trends
-   - **Feature Identification:** Browse extracted feature requests
-   - **Competitor Analysis:** Compare with similar apps
-   - **Issue Detection:** Identify urgent bugs and problems
-
-### **API Usage Example**
-
-```python
-import requests
-
-# Authenticate
-response = requests.post('http://api.yourapp.com/auth/login/', {
-    'email': 'developer@example.com',
-    'password': 'your_password'
-})
-token = response.json()['access_token']
-
-# Get sentiment analysis
-headers = {'Authorization': f'Bearer {token}'}
-sentiment_data = requests.get(
-    'http://api.yourapp.com/api/sentiment-analysis/',
-    headers=headers,
-    params={'app_id': 'com.your.app'}
-)
-
-print(sentiment_data.json())
-```
-
-## 📚 API Documentation
-
-### **Authentication Endpoints**
-- `POST /auth/login/` - User login
-- `POST /auth/register/` - User registration
-- `POST /auth/logout/` - User logout
-
-### **Analysis Endpoints**
-- `GET /api/sentiment-analysis/` - Get sentiment trends
-- `GET /api/feature-extraction/` - Get extracted features
-- `GET /api/competitor-analysis/` - Get competitor comparison
-- `POST /api/analyze-app/` - Trigger app analysis
-
-### **Data Endpoints**
-- `GET /api/reviews/` - Get raw review data
-- `GET /api/insights/` - Get processed insights
-- `GET /api/export/` - Export analysis results
-
-## 🗺 Project Roadmap
-
-### **Phase 1: Data Foundation** ✅
-- [x] Scrape app details and reviews from multiple sources
-- [x] Analyze output structure and create database schema
-- [x] Create models for storing app details and reviews
-- [x] Connect PostgreSQL and store app data
-
-### **Phase 2: Frontend Development** ✅
-- [x] Design frontend website mockups
-- [x] Create basic website structure with ReactJS
-- [x] Implement responsive UI components
-- [x] Integration with backend APIs
-
-### **Phase 3: Backend Core** ✅
-- [x] Develop Django backend architecture
-- [x] Implement authentication system (Normal + Google OAuth)
-- [x] Create RESTful API endpoints
-- [x] Set up payment processing
-
-### **Phase 4: Data Processing** ✅
-- [x] Implement data collection (Scrapy, API integration)
-- [x] Develop NLP preprocessing pipeline:
-  - [x] Tokenization and text cleaning
-  - [x] Part-of-speech tagging
-  - [x] Dependency parsing
-  - [x] Named Entity Recognition (NER)
-  - [x] N-gram extraction
-
-### **Phase 5: ML & Analysis** 🔄
-- [x] Build keyword extraction & topic modeling (TF-IDF, LDA)
-- [x] Set up sentiment analysis (82.3% accuracy)
-- [x] Implement aspect-based sentiment analysis
-- [🔄] Complete feature identification module (80% done)
-- [🔄] Finalize competitor analysis system (70% done)
-
-### **Phase 6: Integration & Visualization** 🔄
-- [x] Backend logic for real-time analysis
-- [x] Dashboard visualizations:
-  - [x] Sentiment graphs
-  - [x] Review recency analysis
-  - [🔄] Feature suggestions display
-  - [🔄] Competitor comparison charts
-  - [🔄] Urgent issue detection alerts
-  - [🔄] Summarized insights panel
-
-### **Phase 7: Enhancement** 📋
-- [ ] Add customizable filter options (security, performance)
-- [ ] Set up developer feedback loop
-- [ ] Implement LLM summarization module
-- [ ] Advanced competitor scraping techniques
-
-### **Phase 8: Production** 📋
-- [ ] Comprehensive testing and debugging
-- [ ] Performance optimization
-- [ ] Docker containerization
-- [ ] AWS/GCP deployment with CI/CD
-- [ ] Load testing and scaling
-- [ ] Documentation and user guides
-
-### **Current Status: ~85% Complete** 🎯
-
-## 🧪 Testing
-
-### **Test Coverage**
-Our testing strategy covers:
-
-- **Unit Tests:** Individual component testing
-- **Integration Tests:** API endpoint testing
-- **End-to-End Tests:** Complete user workflow testing
-- **Performance Tests:** Load and stress testing
-
-### **Test Results Summary**
-| Module | Test Cases | Defects Found | Defects Fixed | Status |
-|--------|------------|---------------|---------------|---------|
-| Authentication | 2 | 1 | 1 | ✅ Pass |
-| Payment Processing | 1 | 1 | 1 | ✅ Pass |
-| Sentiment Analysis | 3 | 3 | 2 | ✅ Pass |
-| Feature Identification | 5 | 5 | 4 | ✅ Pass |
-| Competitor Analysis | 3 | 3 | 0 | ✅ Pass |
-
-### **Running Tests**
-
-```bash
-# Backend tests
-cd backend
-python manage.py test
-
-# Frontend tests
-cd frontend
-npm test
-
-# ML model tests
-cd ml_models
-python -m pytest tests/
-```
-
-## 🚀 Deployment
-
-### **Docker Deployment**
-
-1. **Build containers**
-```bash
-docker-compose build
-```
-
-2. **Run services**
-```bash
-docker-compose up -d
-```
-
-### **AWS Deployment**
-
-1. **Configure AWS credentials**
-```bash
-aws configure
-```
-
-2. **Deploy using Terraform**
-```bash
-cd infrastructure/
-terraform init
-terraform plan
-terraform apply
-```
-
-3. **Set up CI/CD Pipeline**
-```bash
-# Configure GitHub Actions or AWS CodePipeline
-# Automated deployment on main branch push
-```
-
-### **Environment Variables**
-
-```bash
-# Database
-DATABASE_URL=postgresql://user:password@host:port/dbname
-
-# AWS
-AWS_ACCESS_KEY_ID=your_access_key
-AWS_SECRET_ACCESS_KEY=your_secret_key
-AWS_STORAGE_BUCKET_NAME=your_bucket_name
-
-# Google OAuth
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-
-# Security
-SECRET_KEY=your_django_secret_key
-JWT_SECRET=your_jwt_secret
-```
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create feature branch** (`git checkout -b feature/AmazingFeature`)
-3. **Commit changes** (`git commit -m 'Add AmazingFeature'`)
-4. **Push to branch** (`git push origin feature/AmazingFeature`)
-5. **Open Pull Request**
-
-### **Development Guidelines**
-- Follow PEP 8 for Python code
-- Use ESLint for JavaScript code
-- Write comprehensive tests
-- Update documentation
-
-### **Code Review Process**
-- All PRs require 2 approvals
-- Automated tests must pass
-- Code coverage should not decrease
-
-## 👥 Team
-
-**Group ID:** F24DS004  
-**Project Advisor:** Dr. Naveed Hussain  
-**University:** University of Central Punjab, Faculty of Information Technology
-
-
-| Team Member | Role | Responsibilities |
-|-------------|------|------------------|
-| **Abdul Wahab** | Backend Developer | Django development, API design, ML integration |
-| **Muhammad Hassaan** | Documentation & Testing Lead | Test case development, QA, documentation |
-| **Sohaib Tanveer** | Frontend Developer | ReactJS development, UI/UX design, dashboard |
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Dr. Naveed Hussain** for project guidance and mentorship
-- **University of Central Punjab** for providing research facilities
-- **Hugging Face** for pre-trained NLP models
-- **Google Play Store** for review data access
-- **AWS** for cloud infrastructure support
-
-## 📞 Support
-
-For support and questions:
-- **Email:** L1F21BSDS0017@ucp.edu.pk
-- **Issues:** [GitHub Issues](https://github.com/your-org/app-review-analyzer/issues)
-- **Documentation:** [Wiki](https://github.com/your-org/app-review-analyzer/wiki)
-
----
-
-**Made with ❤️ by Team F24DS004**
-
-*Enhancing app development through intelligent user feedback analysis.*
+| Team member      | Role                      |
+| ---------------- | ------------------------- |
+| Abdul Wahab      | Backend development       |
+| Muhammad Hassaan | Documentation and testing |
+| Sohaib Tanveer   | Frontend development      |
