@@ -1,102 +1,170 @@
-# Play Store Review Analyzer
+# Enhancing App Features Through User Reviews
 
-CompFeat (Comparative Feature Advantage Scoring) is a research prototype for extracting candidate app features from Google Play reviews and ranking them by review-level sentiment differences between two apps. It is intended to help product and engineering teams triage review themes; its ranking scores are not validated measures of product quality or causal feature advantage.
+CompFeat (Comparative Feature Advantage Scoring) is a research prototype in this project for extracting candidate app features from Google Play reviews and ranking them by review-level sentiment differences between two competing apps. It is designed to support product and engineering review triage, not to make causal claims about product quality.
 
-**Evidence boundary:** the repository contains batch scraping and offline benchmark scripts. It does not currently implement a live streaming pipeline, report a measured per-review latency or memory benchmark, or document an industry deployment study. Those claims should not be inferred from this project.
+> **Scope note:** This repository contains a web application codebase and a separate batch/offline CompFeat research pipeline. The included scraper is not a continuous review stream, and the current benchmark does not establish industry validation, live-service performance, engineering-team impact, or ranking superiority.
 
-## System overview
+## 📋 Project Overview
 
-1. `scrape_real_reviews.py` fetches up to 300 newest English (US) reviews for each of 52 configured Google Play package IDs and checkpoints data after each app to `data/benchmark_real_52_apps.json`.
-2. `extractors/feature_extractor.py` extracts short noun/adjective feature phrases using spaCy's English dependency parser; a lexical chunk fallback is available if the parser model is missing.
-3. `Feature-Extraction/competitor_recommender.py` detects local positive/negative lexicon evidence near feature mentions.
-4. `scorers/cfas_engine.py` applies smoothed comparative scoring to target/competitor counts. Results are ranked by score for offline analysis.
-5. `evaluation/evaluator.py` and `evaluate_recommendation_benchmark.py` compare rankings with the benchmark's hand-authored ground-truth phrases.
+App reviews contain requests, praise, and complaints in informal language. This project brings together a React frontend, Django backend, review and sentiment components, and research tooling for comparing app-review features. The CompFeat benchmark provides a reproducible offline path over a saved sample of Google Play reviews.
 
-The Google Play scraper makes network requests. Scoring and MiniLM evaluation run locally after their dependencies and model weights are installed; the pipeline does not make an LLM API call. Initial model installation requires downloading artifacts. No measured CPU throughput or memory footprint is currently recorded.
+### Problem addressed
 
-## Core capabilities and limitations
+- Manual review triage can be time-consuming.
+- Informal review language makes feature themes difficult to group consistently.
+- Frequency-only rankings do not express whether review sentiment differs between two competing apps.
+- Exact phrase matching can miss candidates that express the same idea using different words.
 
-- Competitor-aware comparison of review sentiment instead of analyzing each app in isolation.
-- Closed-form, inspectable CFAS calculation; no generative model is used to compute scores.
-- Optional local `all-MiniLM-L6-v2` semantic similarity for benchmark alignment.
-- Checkpointed batch review retrieval that can resume completed app-side fetches.
-- Candidate phrases can be inspected alongside their mention counts and score components.
+### Project capability areas
 
-This code is an offline prototype, not a demonstrated millisecond streaming service. The included scrape is a sequential batch job, and the repository does not contain a streaming ingestion command or an end-to-end sprint-backlog integration. Claims about lower GPU cost or API spend than a particular LLM system have not been benchmarked here.
+- Review collection and storage through scraper and backend components.
+- Sentiment analysis and feature extraction components.
+- Dashboard views for review-related information.
+- CompFeat comparison of candidate feature sentiment across a target app and competitor.
 
-## Benchmark results
+These are repository capability areas, not a claim that every workflow is production-complete. Targets such as fake-review filtering, continuous ingestion, feedback-loop learning, 99.9% uptime, multi-store support, and AWS deployment are not validated by the current CompFeat benchmark.
 
-### Historical recorded run (original implementation)
+## 🧭 CompFeat Pipeline
 
-The following is the exact table recorded for the original benchmark run. It is retained as a historical result and is **not** a result reproduced by the current implementation below.
+1. `scrape_real_reviews.py` fetches up to 300 newest English (US) reviews for each of 52 configured Google Play package IDs and checkpoints progress to `data/benchmark_real_52_apps.json`.
+2. `extractors/feature_extractor.py` extracts short noun/adjective phrases using spaCy's English dependency parser. A lexical fallback is available when the parser model is unavailable.
+3. `Feature-Extraction/competitor_recommender.py` identifies feature mentions and gathers nearby positive/negative lexicon evidence.
+4. `scorers/cfas_engine.py` computes calibrated comparative scores from review-level evidence.
+5. `evaluation/evaluator.py` aligns ranked phrases with configured ground truth using local MiniLM embeddings when available.
+6. `evaluate_recommendation_benchmark.py` compares five ranking methods over both directions of each eligible app pair.
 
-| Method               | MRR   | Hit@1 | Hit@3 | Hit@5 |
-| -------------------- | ----- | ----- | ----- | ----- |
-| Negative Frequency   | 0.015 | 0.000 | 0.000 | 0.021 |
-| Raw Frequency        | 0.066 | 0.021 | 0.042 | 0.062 |
-| SAFE / KEFE          | 0.112 | 0.062 | 0.125 | 0.125 |
-| SAFER-Style          | 0.081 | 0.042 | 0.042 | 0.062 |
-| CompFeat (This Work) | 0.052 | 0.021 | 0.021 | 0.083 |
+Scoring and semantic evaluation run locally after installation and model download. The review scraper requires network access. CompFeat does not use a generative LLM API to calculate scores. No per-review streaming latency or memory benchmark is currently reported.
 
-### Current implementation, measured 2026-09-28
+## ✨ Capabilities and Limitations
 
-Re-running `evaluate_recommendation_benchmark.py` with the current scorer, dependency-guided extraction, MiniLM semantic backend, and a 500-candidate cap produced:
+- Competitor-aware review comparison rather than independent per-app sentiment alone.
+- Interpretable closed-form CFAS scores and inspectable feature mention statistics.
+- Dependency-guided candidate phrases, local lexicon sentiment, and optional MiniLM semantic matching.
+- Checkpointed batch review scraping and offline benchmark evaluation.
 
-| Method             |   MRR | Hit@1 | Hit@3 | Hit@5 | Precision@5 | Recall@5 |
-| ------------------ | ----: | ----: | ----: | ----: | ----------: | -------: |
-| Raw Frequency      | 0.057 | 0.000 | 0.042 | 0.146 |       0.029 |    0.049 |
-| Negative Frequency | 0.033 | 0.021 | 0.042 | 0.042 |       0.008 |    0.014 |
-| SAFE / KEFE        | 0.081 | 0.021 | 0.104 | 0.125 |       0.025 |    0.042 |
-| SAFER-Style        | 0.089 | 0.021 | 0.125 | 0.167 |       0.033 |    0.056 |
-| CompFeat           | 0.032 | 0.021 | 0.021 | 0.021 |       0.004 |    0.007 |
+The current pipeline is a sequential batch experiment, not a demonstrated real-time stream processor. The codebase does not provide evidence for millisecond throughput, zero total operating cost, or measured cost advantages over a specific LLM system. MiniLM inference is local, but the model must first be downloaded; scraping also makes external requests.
 
-This run evaluated 48 directions from 24 app pairs; 4 directions were skipped because one app side had no reviews. CompFeat did **not** outperform the baselines in this run. Results are specific to the configured review snapshot, candidate cap, sentiment lexicon, semantic threshold, and ground-truth labels; they should not be presented as evidence of benchmark superiority.
+## 🧪 Benchmark Results
 
-### Interpretation and evaluation caveats
+### Historical recorded results
 
-- Informal review wording can differ from the hand-authored reference phrases. The current evaluator uses MiniLM cosine similarity with a 0.78 threshold, exact normalized text matching, and token-set inclusion/overlap (inclusion is assigned 0.85). This reduces, but does not eliminate, lexical mismatch; semantic thresholds still need validation against human judgments.
-- Ground-truth phrases are stored in the benchmark configuration and are not documented as independently annotated by multiple reviewers. Their coverage and label quality limit the conclusions that can be drawn.
-- The historical exact-string-style metrics and the current semantic metrics use different evaluation implementations and are not directly comparable. Use the current run for current-code claims.
-- `Hit@k` is 1 when at least one relevant candidate appears in the first `k` ranks. MRR uses the reciprocal rank of the first relevant candidate. Precision@5 and Recall@5 use unique ground-truth phrases matched among the first five ranked candidates. Relevance is defined by the evaluator's configured similarity threshold, not by exact equality alone.
-- A top-five retrieval rate can be operationally useful, but this benchmark does not measure engineering-team utility, sprint outcomes, or the value of an individual retrieved feature.
+This table preserves the original benchmark values supplied with the project. It describes an earlier implementation and is not reproduced by the current code and evaluator.
 
-## CFAS scoring
+| Method | MRR | Hit@1 | Hit@3 | Hit@5 |
+| --- | ---: | ---: | ---: | ---: |
+| Negative Frequency | 0.015 | 0.000 | 0.000 | 0.021 |
+| Raw Frequency | 0.066 | 0.021 | 0.042 | 0.062 |
+| SAFE / KEFE | 0.112 | 0.062 | 0.125 | 0.125 |
+| SAFER-Style | 0.081 | 0.042 | 0.042 | 0.062 |
+| CompFeat (initial) | 0.052 | 0.021 | 0.021 | 0.083 |
 
-For app A and app B, let `pos` and `neg` be accumulated review-level polarity evidence and `T` the number of reviews mentioning a candidate. Defaults are `alpha=1`, `beta=2`, negative weight `lambda=1.25`, and target salience `kappa=0.5`:
+### Current implementation results
+
+Measured on 2026-09-28 with the current calibrated scorer, dependency-guided extraction, MiniLM semantic backend, and a 500-candidate cap:
+
+| Method | MRR | Hit@1 | Hit@3 | Hit@5 | Precision@5 | Recall@5 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Raw Frequency | 0.057 | 0.000 | 0.042 | 0.146 | 0.029 | 0.049 |
+| Negative Frequency | 0.033 | 0.021 | 0.042 | 0.042 | 0.008 | 0.014 |
+| SAFE / KEFE | 0.081 | 0.021 | 0.104 | 0.125 | 0.025 | 0.042 |
+| SAFER-Style | 0.089 | 0.021 | 0.125 | 0.167 | 0.033 | 0.056 |
+| CompFeat | 0.032 | 0.021 | 0.021 | 0.021 | 0.004 | 0.007 |
+
+**Result:** CompFeat did not outperform the baselines in this run. The benchmark evaluated 48 directions from 24 app pairs and skipped 4 directions because one app side had no reviews. The current result must not be presented as an improvement over the baselines.
+
+### Reading the metrics
+
+- **MRR** is the mean reciprocal rank of the first relevant candidate in each evaluated direction.
+- **Hit@k** is 1 if at least one relevant candidate appears among the first `k` ranks, otherwise 0; the table reports the mean over directions.
+- **Precision@5** and **Recall@5** count distinct ground-truth phrases matched among the first five ranked candidates. Precision uses a denominator of five.
+- Relevance in the current run is based on MiniLM cosine similarity at threshold 0.78, combined with exact normalized matching and token overlap/inclusion. Token-set inclusion receives a score of 0.85. These choices need human validation; semantic matching does not guarantee that a retrieved phrase is a useful requirement.
+- Ground-truth phrases are configured in the scraper and are not documented as independently annotated by multiple reviewers. Review wording, candidate limits, missing app reviews, and label coverage all affect results.
+- The historical and current tables use different evaluation implementations and are not directly comparable.
+
+The benchmark's `SAFE / KEFE` and `SAFER-Style` names refer to simplified implementations inside `evaluate_recommendation_benchmark.py`. They do not execute the legacy KEFE pipeline or a separate SAFER package.
+
+## 📐 CFAS Scoring
+
+For app A and app B, `P` and `N` represent accumulated positive and negative review-level polarity evidence, and `T` is the number of reviews mentioning the candidate. Defaults are $\alpha=1$, $\beta=2$, negative weight $\lambda=1.25$, and target salience $\kappa=0.5$.
 
 $$
 S_X(f)=\frac{P_X(f)-\lambda N_X(f)+\alpha}{T_X(f)+\alpha+\beta},\qquad
-\operatorname{CFAS}(f)=\log_2(1+T_A+T_B)\,[S_A(f)-S_B(f)]\,[1-e^{-\kappa T_A(f)}].
+\text{CFAS}(f)=\log_2(1+T_A+T_B)\,[S_A(f)-S_B(f)]\,[1-e^{-\kappa T_A(f)}].
 $$
 
-When both mention counts are zero, the scorer returns 0. When only competitor count is zero, its smoothed sentiment is `alpha/(alpha+beta)`; there is no division by zero. There is no hard mention threshold in the scorer. The benchmark first limits the union of candidates to the 500 with greatest combined extraction frequency. The recommender's profile method also omits candidates absent from the target reviews. The profile's reported specificity weight is diagnostic metadata and is not multiplied into the calibrated score.
+| Component | Meaning |
+| --- | --- |
+| $S_X(f)$ | Smoothed sentiment evidence for feature $f$ in app $X$ |
+| $\log_2(1+T_A+T_B)$ | Logarithmic frequency factor over both apps |
+| $S_A(f)-S_B(f)$ | Comparative sentiment difference, oriented toward app A |
+| $1-e^{-\kappa T_A(f)}$ | Continuous salience gate based on target-app mentions |
 
-On the current dataset and benchmark candidate cap, a directional score audit found **9,925 target-present candidate-direction records** with observed CFAS values from **-2.7748** to **1.9009** (median **-0.0328**, mean **-0.0439**, 5th/95th percentiles **-0.2590 / 0.0668**). Observed smoothed target polarity ranged from **-0.775** to **0.800**; competitor polarity ranged from **-0.775** to **0.800**. These are run-specific descriptive statistics, not theoretical bounds. With the implemented formula, smoothed polarity approaches `-1.25` and `+1` as counts grow under the scorer's count constraints; the log frequency multiplier means CFAS itself has no fixed `[-1, 1]` bound. Because the directional audit scoring routine was optimized separately from the five-way benchmark ranking loop, the CFAS descriptive distribution should be treated as an audit sample, not the empirical output score distribution of every ranked feature in the benchmark.
+If both mention counts are zero, the scorer returns 0. If app B has zero mentions, its smoothed sentiment is $\alpha/(\alpha+\beta)$, so there is no division by zero. The scorer has no hard minimum-mention threshold. The benchmark does cap the candidate union at 500 phrases per pair, selected by combined extraction frequency. The recommender's profile API omits candidates absent from the target app. The reported specificity weight is metadata and is not multiplied into the calibrated score.
 
-## Repository layout
+### Observed score distribution
+
+The following is a directional audit of 9,925 target-present candidate records from the saved review corpus, using the benchmark candidate cap. It is a run-specific descriptive distribution, not a theoretical bound.
+
+| Measure | Minimum | 5th percentile | Median | Mean | 95th percentile | Maximum |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| CFAS | -2.7748 | -0.2590 | -0.0328 | -0.0439 | 0.0668 | 1.9009 |
+| Smoothed app A polarity | -0.7750 | -0.0500 | 0.2500 | 0.2493 | 0.5000 | 0.8000 |
+| Smoothed app B polarity | -0.7750 | 0.2000 | 0.3333 | 0.3190 | 0.3333 | 0.8000 |
+
+These observed ranges are dataset-specific. Smoothed polarity is not constrained to $[-1,1]$ under the implemented negative weight; as evidence grows it can approach -1.25 on the negative side and +1 on the positive side. CFAS has no fixed $[-1,1]$ bound because its frequency factor grows logarithmically. The score-distribution audit is separate from the benchmark's five-method ranking loop and should not be interpreted as a distribution over every feature ranked there.
+
+## 🧰 Technology and Architecture
+
+| Area | Repository components |
+| --- | --- |
+| Frontend | React 19, React Bootstrap, Chart.js/Recharts |
+| Backend | Django 5.2, Django REST Framework |
+| Database support | PostgreSQL service in `docker-compose.yml`; backend also contains SQLModel/SQLAlchemy dependencies |
+| Review collection | Google Play scraper package and Scrapy project |
+| NLP and research | spaCy, lexicon-based CompFeat scoring, scikit-learn, Sentence Transformers / MiniLM |
 
 ```text
-data/                         Scraped review benchmark JSON
-extractors/                   Dependency-guided feature extraction
-scorers/                      Calibrated CFAS scoring
-evaluation/                   Semantic evaluator
-Feature-Extraction/            Existing KEFE modules and CompFeat recommender
-Frontend/                      Web client
-Backend/                       Django API and application code
-Sentiment_analysis/            Sentiment-analysis components
-Spiders/                       Scrapy review collection code
-Flowchart-Diagrams/            Project diagrams
-scrape_real_reviews.py         Checkpointed Google Play batch scraper
+Google Play reviews -- batch scrape --> saved review dataset
+                                      |
+                                      v
+                      feature phrase extraction
+                                      |
+                                      v
+                     review-level sentiment evidence
+                                      |
+                                      v
+                         comparative CFAS ranking
+                                      |
+                                      v
+                 semantic ground-truth evaluation
+```
+
+The transformer sentiment service and legacy KEFE modules are separate paths; the CompFeat benchmark uses its own lexicon evidence and scoring implementation. The repository configuration alone does not establish cloud deployment, multi-region availability, payment processing, or production security controls.
+
+## 🗂 Repository Layout
+
+```text
+Backend/                              Django API and application code
+Frontend/                             React web client
+Sentiment_analysis/                   Sentiment-analysis service and components
+Spiders/                              Scrapy review-collection code
+Feature-Extraction/                   Legacy KEFE modules and CompFeat recommender
+extractors/                           Dependency-guided feature phrase extraction
+scorers/                              Calibrated CFAS scoring
+evaluation/                           Semantic evaluator
+data/                                 Scraped benchmark JSON
+Flowchart-Diagrams/                   Project diagrams
+scrape_real_reviews.py                Checkpointed benchmark scraper
 evaluate_recommendation_benchmark.py  Five-method offline benchmark
 ```
 
-There is no top-level `ui/` directory; the frontend lives in `Frontend/`.
+The frontend directory is named `Frontend/`; there is no top-level `ui/` directory.
 
-## Getting started
+## 🚀 Getting Started: CompFeat CLI
 
-### Create an environment and install the analysis dependencies
+Commands below run from the repository root in PowerShell.
 
-From the repository root (PowerShell):
+### 1. Create and activate a Python environment
 
 ```powershell
 py -3.14 -m venv .venv
@@ -105,39 +173,32 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-The root requirements install the Google Play scraper, numerical/data-science packages, spaCy, its configured English model, and Sentence Transformers. If installing the parser separately, use:
+The root requirements include the scraper, NumPy, pandas, scikit-learn, spaCy, its configured English model, and Sentence Transformers. The first MiniLM use downloads model files and requires network access and disk space. If the model is unavailable, the evaluator uses a character n-gram TF-IDF fallback and reports that backend; fallback metrics are not directly comparable to MiniLM results.
 
-```powershell
-python -m pip install spacy
-python -m spacy download en_core_web_sm
-```
-
-The evaluator loads `sentence-transformers/all-MiniLM-L6-v2` locally. Its first use downloads the model; ensure network access and sufficient disk space. If the package/model cannot load, the evaluator reports and uses its character n-gram TF-IDF fallback, which is a different evaluation backend.
-
-### Scrape reviews
+### 2. Scrape the configured apps
 
 ```powershell
 python scrape_real_reviews.py
 ```
 
-This fetches newest English (US) reviews, up to 300 per package ID, and checkpoints to `data/benchmark_real_52_apps.json`. A failed or unavailable Play Store package may yield no reviews; inspect the resulting counts before interpreting the benchmark. The script is batch scraping, not a continuous stream consumer.
+The script requests newest English (US) reviews, up to 300 per package ID, and checkpoints to `data/benchmark_real_52_apps.json`. Google Play availability and rate limits can result in an app having no reviews. Check the saved counts before interpreting a run.
 
-### Run evaluation
+### 3. Run the offline benchmark
 
 ```powershell
 python evaluate_recommendation_benchmark.py
 ```
 
-The script prints aggregate metrics for Raw Frequency, Negative Frequency, SAFE / KEFE, SAFER-Style, and CompFeat. It reports skipped directions and the semantic backend. A timed rerun on the current workstation took approximately **117 seconds** including MiniLM initialization. This is one end-to-end benchmark duration, not a per-review streaming latency. For reproducible comparisons, retain the dataset snapshot, dependency/model versions, candidate cap, and evaluator threshold with the results.
+The script prints MRR, Hit@1/3/5, Precision@5, and Recall@5 for all five ranking methods, plus skipped directions and semantic backend. A measured run on the development workstation took about 117 seconds including MiniLM initialization; this is one benchmark runtime, not per-review streaming latency.
 
-## Project team
+## 🧑‍🔬 Project Team
 
 **Group:** F24DS004
 **Advisor:** Dr. Naveed Hussain
 **University:** University of Central Punjab, Faculty of Information Technology
 
-| Team member      | Role                      |
-| ---------------- | ------------------------- |
-| Abdul Wahab      | Backend development       |
+| Team member | Role |
+| --- | --- |
+| Abdul Wahab | Backend development |
 | Muhammad Hassaan | Documentation and testing |
-| Sohaib Tanveer   | Frontend development      |
+| Sohaib Tanveer | Frontend development |
